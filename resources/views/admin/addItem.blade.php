@@ -3,7 +3,7 @@
 @section('adminContent')
     <div class="w-75 container">
         <div class="row justify-content-center mt-5">
-            <form method="POST" action="">
+            <form method="POST" action="" class="bg-light bg-gradient p-3">
                 @csrf
                 <div class="mb-3 row">
                     <div class="col-md-6">
@@ -23,10 +23,12 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Item Description<span style="color: red;">
-                            *</span></label>
+                    <label for="exampleFormControlTextarea1" class="form-label">
+                        Item Description<span style="color: red;"> *</span>
+                    </label>
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"
-                        placeholder="Add Item name Description upto 64 Characters"></textarea>
+                        placeholder="Add Item Description up to 64 Characters" oninput="updateWordCount()"></textarea>
+                    <small id="wordCount" class="form-text text-muted">Word count: 0</small>
                 </div>
                 <label for="exampleFormControlTextarea1" class="form-label">
                     Item Collection
@@ -57,7 +59,14 @@
                         <input type="file" class="ms-2 form-control" id="customFile" aria-label="Upload">
                     </div>
                 </div>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <div class="col-md-6">
+                    <label for="itemName2" class="form-label">
+                        Item Price<span style="color: red;"> *</span>
+                    </label>
+                    <input type="text" class="form-control" id="itemName2"
+                        placeholder="Add Item Price">
+                </div>
+                <div class="mt-2 d-grid gap-2 d-md-flex justify-content-md-start">
                     <button class="btn btn-primary" type="submit">Button</button>
                 </div>
             </form>
