@@ -26,7 +26,7 @@
                     <label for="exampleFormControlTextarea1" class="form-label">
                         Item Description<span style="color: red;"> *</span>
                     </label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
                         placeholder="Add Item Description up to 64 Characters" oninput="updateWordCount()"></textarea>
                     <small id="wordCount" class="form-text text-muted">Word count: 0</small>
                 </div>
