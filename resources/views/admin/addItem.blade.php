@@ -1,9 +1,12 @@
 @extends('admin')
 
 @section('adminContent')
+    @php
+        print_r($errors);
+    @endphp
     <div class="w-75 container">
         <div class="row justify-content-center mt-5">
-            <form method="POST" action="{{ route('addItemData') }}" class="bg-light bg-gradient p-3">
+            <form method="POST" action="{{ route('addItemData') }}" class="bg-light bg-gradient p-3" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3 row">
                     <div class="col-md-6">
@@ -40,14 +43,14 @@
 
                     <div class="form-check me-3">
                         <input class="form-check-input" type="radio" name="prod_collection" id="prod_collection1"
-                            value="trending" {{ old('prod_collection') == 'trending' ? 'checked' : '' }}>
+                            value="trending">
                         <label class="form-check-label" for="prod_collection1">
                             Trending Product
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="prod_collection" id="prod_collection2"
-                            value="top_selling" {{ old('prod_collection') == 'top_selling' ? 'checked' : '' }}>
+                            value="top_selling" >
                         <label class="form-check-label" for="prod_collection2">
                             Top Selling Product
                         </label>
@@ -63,7 +66,7 @@
                             >
                             <i class="fa-solid fa-plus" style="font-size: 1.2rem;"></i>
                         </span>
-                        <input type="file" class="ms-2 form-control" id="image{{$inputTypeFileCount}}" name="imageimage{{$inputTypeFileCount}}" aria-label="Upload"
+                        <input type="file" class="ms-2 form-control" id="prod_image{{$inputTypeFileCount}}" name="prod_image{{$inputTypeFileCount}}" aria-label="Upload"
                             accept="image/*">
                             <input type="hidden" id="inputTypeFileCount" name="inputTypeFileCount" value="{{$inputTypeFileCount}}" />
                     </div>
@@ -71,10 +74,10 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <label for="itemName2" class="form-label">
+                    <label for="prod_amount" class="form-label">
                         Item Price<span style="color: red;"> *</span>
                     </label>
-                    <input type="text" class="form-control" id="itemName2" placeholder="Add Item Price">
+                    <input type="text" class="form-control" value="{{old('prod_amount')}}" id="prod_amount" name="prod_amount" placeholder="Add Item Price">
                 </div>
                 <div class="mt-2 d-grid gap-2 d-md-flex justify-content-md-start">
                     <button class="btn btn-primary" type="submit">Button</button>

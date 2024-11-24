@@ -27,10 +27,10 @@
                         <a class="nav-link is-active" href="#">Home</a>
                     </li>
                     <li class="nav-item me-3">
-                        <a class="nav-link" href="#">Products</a>
+                        <a class="nav-link" href="#">About</a>
                     </li>
                     <li class="nav-item me-3">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="#">Offers</a>
                     </li>
                     <li class="nav-item me-3">
                         <a class="nav-link" href="#">Contact</a>

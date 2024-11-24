@@ -6,16 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class product extends Model
+class image extends Model
 {
     use HasFactory, Notifiable;
-    protected $table = 'products';
-    protected $primaryKey = 'prod_id';
+    protected $table = 'images';
+    protected $primaryKey = 'image_id';
     protected $fillable = [
-        'prod_name',
-        'prod_category',
-        'prod_desc',
-        'prod_amount',
-        'prod_collection',
+        'image_name',
+        'image_prod_id',
+        'image_data',
     ];
+    public $timestamps = false;
 }

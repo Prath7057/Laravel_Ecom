@@ -10,7 +10,7 @@ menuLinks.forEach((link) => {
 });
 
 function updateWordCount() {
-    const textarea = document.getElementById("exampleFormControlTextarea1");
+    const textarea = document.getElementById("prod_desc");
     const wordCount = document.getElementById("wordCount");
     const words = textarea.value.trim().split(/\s+/).filter(Boolean);
     wordCount.textContent = `Word count: ${words.length}`;
