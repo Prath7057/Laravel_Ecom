@@ -36,9 +36,9 @@ function addInputTypeFile(inputTypeFileCount1) {
         .then((response) => response.text())
         .then((responseText) => {
             //
-            let deleteInputTypeFile = document.querySelectorAll('.deleteInputTypeFile');
-            deleteInputTypeFile.forEach(element => {
-                element.style.visibility = 'hidden';
+            let deleteInputTypeFile = document.querySelectorAll(".deleteInputTypeFile");
+            deleteInputTypeFile.forEach((element) => {
+                element.style.visibility = "hidden";
             });
             //
             let newDiv = document.getElementById("inputTypeFileDiv" + (inputTypeFileCount - 1));
@@ -58,9 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
 function deleteInputTypeFile(inputTypeFileCount) {
     inputTypeFileCount--;
     document.getElementById("addMoreButton").style.visibility = "visible";
-    document.getElementById("inputTypeFileDiv"+inputTypeFileCount).innerHTML = ''; 
+    document.getElementById("inputTypeFileDiv" + inputTypeFileCount).innerHTML = "";
     if (inputTypeFileCount > 1) {
-        document.getElementById("deleteButton"+inputTypeFileCount).style.visibility = "visible";
-    }  
+        document.getElementById("deleteButton" + inputTypeFileCount).style.visibility = "visible";
+    }
     document.getElementById("inputTypeFileCount").value = inputTypeFileCount;
 }
