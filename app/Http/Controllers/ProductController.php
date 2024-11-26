@@ -33,6 +33,16 @@ class ProductController extends Controller
     public function create()
     {
         //
+        $trendingProducts = Product::select('prod_id', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
+        ->with([
+            'firstImage:image_prod_id,image_name'
+        ])
+        ->get();
+        //
+        return view('admin.itemList',[
+            'panelName' => 'admin',
+            'items' => $trendingProducts,
+        ]);
     }
     //
     public function store(Request $request)

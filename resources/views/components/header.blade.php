@@ -13,10 +13,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item me-3">
-                        <a class="nav-link is-active" href="{{ route('addItem') }}">Add Item</a>
+                        <a class="nav-link {{ request()->routeIs('addItem') ? 'is-active' : '' }}" href="{{ route('addItem') }}">Add Item</a>
                     </li>
                     <li class="nav-item me-3">
-                        <a class="nav-link" href="#">Item List</a>
+                        <a class="nav-link {{ request()->routeIs('itemList') ? 'is-active' : '' }}" href="{{ route('itemList') }}">Item List</a>
                     </li>
                 </ul>
             </div>

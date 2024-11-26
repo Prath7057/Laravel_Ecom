@@ -52,6 +52,7 @@ function addInputTypeFile(inputTypeFileCount1) {
         .catch((error) => console.error("Error:", error));
 }
 document.addEventListener("DOMContentLoaded", function () {
+    if (document.getElementById("inputTypeFileCount") != null)
     document.getElementById("inputTypeFileCount").value = 1;
 });
 //
