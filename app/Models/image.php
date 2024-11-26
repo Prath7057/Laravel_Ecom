@@ -17,4 +17,9 @@ class image extends Model
         'image_data',
     ];
     public $timestamps = false;
+    //
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'image_prod_id', 'prod_id');
+    }
 }

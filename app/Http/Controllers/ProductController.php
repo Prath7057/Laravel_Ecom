@@ -10,7 +10,24 @@ class ProductController extends Controller
 {
     public function index()
     {
+        $trendingProducts = Product::where('prod_collection', 'trending')
+        ->select('prod_id', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
+        ->with([
+            'firstImage:image_prod_id,image_name'
+        ])
+        ->get();
+        $topSellingProducts = Product::where('prod_collection', 'top_selling')
+        ->select('prod_id', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
+        ->with([
+            'firstImage:image_prod_id,image_name'
+        ])
+        ->get();
 
+        return view('index', [
+            'panelName' => 'index',
+            'trendingProducts' => $trendingProducts,
+            'topSellingProducts' => $topSellingProducts,
+        ]);
     }
     //
     public function create()
@@ -21,8 +38,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'prod_category' => 'required|max:16',
-            'prod_name' => 'required|max:16',
+            'prod_category' => 'required|max:32',
+            'prod_name' => 'required|max:32',
             'prod_desc' => 'required',
             'prod_collection' => 'required',
             'prod_amount' => 'required|numeric',
@@ -38,6 +55,12 @@ class ProductController extends Controller
                 $imageName = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
                 $image->move(public_path('images/prod_image'), $imageName);
                 $imageData = base64_encode(file_get_contents(public_path('images/prod_image') . '/' . $imageName));
+                $imageSize = filesize(public_path('images/prod_image') . '/' . $imageName);
+                $maxSize = 3 * 1024 * 1024;
+                //
+                if ($imageSize > $maxSize) {
+                    $imageData = null;
+                }
                 //
                 image::create([
                     'image_name' => $imageName,  

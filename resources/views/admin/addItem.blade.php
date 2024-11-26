@@ -1,10 +1,7 @@
 @extends('admin')
 
 @section('adminContent')
-    @php
-        print_r($errors);
-    @endphp
-    <div class="w-75 container">
+    <div class="container">
         <div class="row justify-content-center mt-5">
             <form method="POST" action="{{ route('addItemData') }}" class="bg-light bg-gradient p-3" enctype="multipart/form-data">
                 @csrf

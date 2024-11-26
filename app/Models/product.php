@@ -18,4 +18,9 @@ class product extends Model
         'prod_amount',
         'prod_collection',
     ];
+    //
+    public function firstImage()
+    {
+        return $this->hasOne(Image::class, 'image_prod_id', 'prod_id');
+    }
 }
