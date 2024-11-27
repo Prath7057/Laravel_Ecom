@@ -1,17 +1,34 @@
 @extends('admin')
 
 @section('adminContent')
+@php
+    print_r($errors);
+@endphp
     <div class="container">
         <div class="row justify-content-center mt-5">
             <form method="POST" action="{{ route('addItemData') }}" class="bg-light bg-gradient p-3" enctype="multipart/form-data">
                 @csrf
+                <div class="mb-3 row">                    
+                    <div class="col-md-6">
+                        <label for="prod_code" class="form-label">
+                            Item Code<span style="color: red;"> *</span>
+                        </label>
+                        <input type="text" class="form-control" value="{{ old('prod_code', $product->prod_code ?? '') }}" id="prod_code" name="prod_code" placeholder="Item Code">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="prod_amount" class="form-label">
+                            Item Price<span style="color: red;"> *</span>
+                        </label>
+                        <input type="text" class="form-control" value="{{old('prod_amount', $product->prod_amount ?? '')}}" id="prod_amount" name="prod_amount" placeholder="Add Item Price">
+                    </div>
+                </div>
                 <div class="mb-3 row">
                     <div class="col-md-6">
                         <label for="itemName1" class="form-label">
                             Item Category<span style="color: red;"> *</span>
                         </label>
                         <input type="text" class="form-control" id="prod_category" name="prod_category"
-                            value="{{ old('prod_category') }}" required
+                            value="{{ old('prod_category', $product->prod_category ?? '') }}" required
                         placeholder="Add Item Category Upto 16 Characters">
                     </div>
                     <div class="col-md-6">
@@ -19,7 +36,7 @@
                             Item Name<span style="color: red;"> *</span>
                         </label>
                         <input type="text" class="form-control" id="prod_name" name="prod_name"
-                            value="{{ old('prod_name') }}" required
+                            value="{{ old('prod_name', $product->prod_name ?? '') }}" required
                         placeholder="Add Item name Upto 16 Characters">
                     </div>
                 </div>
@@ -29,7 +46,7 @@
                         Item Description<span style="color: red;"> *</span>
                     </label>
                     <textarea class="form-control" id="prod_desc" name="prod_desc" rows="3"
-                        placeholder="Add Item Description up to 64 Characters" oninput="updateWordCount()">{{ old('prod_desc') }}</textarea>
+                        placeholder="Add Item Description up to 64 Characters" oninput="updateWordCount()">{{ old('prod_desc', $product->prod_desc ?? '') }}</textarea>
                     <small id="wordCount" class="form-text text-muted">Word count: 0</small>
                 </div>
                 <label for="exampleFormControlTextarea1" class="form-label">
@@ -39,17 +56,24 @@
                 <div class="d-flex align-items-center">
 
                     <div class="form-check me-3">
-                        <input class="form-check-input" type="radio" name="prod_collection" id="prod_collection1"
-                            value="trending">
+                        <input class="form-check-input" style="border: 1.5px solid rgb(26, 26, 26)" type="radio" name="prod_collection" id="prod_collection1"
+                            value="trending" {{ $product->prod_collection == 'trending' ? 'checked' : '' }} >
                         <label class="form-check-label" for="prod_collection1">
-                            Trending Product
+                            Trending 
                         </label>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="prod_collection" id="prod_collection2"
-                            value="top_selling" >
+                    <div class="form-check me-3">
+                        <input class="form-check-input" style="border: 1.5px solid rgb(26, 26, 26)" type="radio" name="prod_collection" id="prod_collection2"
+                            value="top_selling" {{ $product->prod_collection == 'top_selling' ? 'checked' : '' }} >
                         <label class="form-check-label" for="prod_collection2">
-                            Top Selling Product
+                            Best Seller
+                        </label>
+                    </div>
+                    <div class="form-check me-3">
+                        <input class="form-check-input" style="border: 1.5px solid rgb(26, 26, 26)" type="radio" name="prod_collection" id="prod_collection3"
+                            value="recommended" {{ $product->prod_collection == 'recommended' ? 'checked' : '' }} >
+                        <label class="form-check-label" for="prod_collection3">
+                            Recommanded 
                         </label>
                     </div>
                 </div>
@@ -69,15 +93,9 @@
                     </div>
                     <div id="inputTypeFileDiv{{$inputTypeFileCount}}" class="input-group align-items-center mt-1">
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <label for="prod_amount" class="form-label">
-                        Item Price<span style="color: red;"> *</span>
-                    </label>
-                    <input type="text" class="form-control" value="{{old('prod_amount')}}" id="prod_amount" name="prod_amount" placeholder="Add Item Price">
-                </div>
+                </div>                
                 <div class="mt-2 d-grid gap-2 d-md-flex justify-content-md-start">
-                    <button class="btn btn-primary" type="submit">Button</button>
+                    <button class="btn btn-primary" type="submit">Add Item</button>
                 </div>
             </form>
         </div>

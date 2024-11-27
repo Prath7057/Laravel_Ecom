@@ -13,6 +13,7 @@ class product extends Model
     protected $primaryKey = 'prod_id';
     protected $fillable = [
         'prod_name',
+        'prod_code',
         'prod_category',
         'prod_desc',
         'prod_amount',
@@ -22,5 +23,10 @@ class product extends Model
     public function firstImage()
     {
         return $this->hasOne(Image::class, 'image_prod_id', 'prod_id');
+    }
+    //
+    public function AllImages()
+    {
+        return $this->hasMany(Image::class, 'image_prod_id', 'prod_id');
     }
 }

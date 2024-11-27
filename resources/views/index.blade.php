@@ -90,4 +90,29 @@ Home
   </div>
 </div>
 
+<div class="container-fluid">
+    <h2>Recommanded Items</h2>
+    <div class="row" style="">
+        @foreach($recommendedProducts as $product)
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="card" style="width: 100%;">
+                <div style="height: 200px; overflow: hidden;">
+                    <img src="{{ $product->firstImage && $product->firstImage->image_name ? asset('images/prod_image/' . $product->firstImage->image_name) : 'https://via.placeholder.com/300x200' }}" 
+                    alt="{{ $product->prod_name }}" class="card-img-top w-100 h-100" style="object-fit: contain;"
+                        >
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">{{ $product->prod_name }}</h5>
+                  <p class="card-text">
+                    {{ $product->prod_desc }}
+                  </p>
+                  <a href="#" class="btn btn-primary">
+                    <i class="fa fa-shopping-cart"></i> {{$product->prod_amount}}
+                  </a>
+              </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+  </div>
 @endsection

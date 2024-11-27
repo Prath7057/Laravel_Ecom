@@ -22,21 +22,28 @@ class ProductController extends Controller
             'firstImage:image_prod_id,image_name'
         ])
         ->get();
-
+        $recommendedProducts = Product::where('prod_collection', 'recommended')
+        ->select('prod_id', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
+        ->with([
+            'firstImage:image_prod_id,image_name'
+        ])
+        ->get();
         return view('index', [
             'panelName' => 'index',
             'trendingProducts' => $trendingProducts,
             'topSellingProducts' => $topSellingProducts,
+            'recommendedProducts' => $recommendedProducts,
         ]);
     }
     //
     public function create()
     {
         //
-        $trendingProducts = Product::select('prod_id', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
+        $trendingProducts = Product::select('prod_id','prod_code', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
         ->with([
             'firstImage:image_prod_id,image_name'
         ])
+        ->orderBy('prod_id', 'desc')
         ->get();
         //
         return view('admin.itemList',[
@@ -49,6 +56,7 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'prod_category' => 'required|max:32',
+            'prod_code' => 'required|max:8',
             'prod_name' => 'required|max:32',
             'prod_desc' => 'required',
             'prod_collection' => 'required',
@@ -90,7 +98,16 @@ class ProductController extends Controller
     //
     public function edit(string $id)
     {
-        //
+        $product = Product::where('prod_id', $id)
+        ->select('prod_id','prod_code', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
+        ->with([
+            'AllImages:image_prod_id,image_name'
+        ])
+        ->first(); 
+        return view('admin.addItem',[
+            'panelName' => 'admin',
+            'product' => $product,
+        ]);
     }
     //
     public function update(Request $request, string $id)

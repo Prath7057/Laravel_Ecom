@@ -15,6 +15,8 @@ Route::prefix('admin')->group(function () {
         return view('admin.addItem',['panelName' => 'admin']);
     })->name('addItem');
     //
+    Route::get('/updateItem/{prod_id}', [ProductController::class, 'edit'])->name('updateItem');
+    //
     Route::get('/itemList', [ProductController::class, 'create'])->name('itemList');
     //
     Route::post('/addItemData', [ProductController::class, 'store'])->name('addItemData');
