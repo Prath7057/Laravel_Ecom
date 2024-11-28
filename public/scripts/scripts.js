@@ -53,15 +53,21 @@ function addInputTypeFile(inputTypeFileCount1) {
 }
 document.addEventListener("DOMContentLoaded", function () {
     if (document.getElementById("inputTypeFileCount") != null)
-    document.getElementById("inputTypeFileCount").value = 1;
+        if (document.getElementById("secure_prod_id") != null) {
+            if (document.getElementById("secure_prod_id").value == '') {               
+                document.getElementById("inputTypeFileCount").value = 1;
+            }
+        }
 });
 //
 function deleteInputTypeFile(inputTypeFileCount) {
     inputTypeFileCount--;
     document.getElementById("addMoreButton").style.visibility = "visible";
     document.getElementById("inputTypeFileDiv" + inputTypeFileCount).innerHTML = "";
-    if (inputTypeFileCount > 1) {
-        document.getElementById("deleteButton" + inputTypeFileCount).style.visibility = "visible";
-    }
     document.getElementById("inputTypeFileCount").value = inputTypeFileCount;
+    while (inputTypeFileCount > 1 && document.getElementById("deleteButton" + inputTypeFileCount) != null) {
+        document.getElementById("deleteButton" + inputTypeFileCount).style.visibility = "visible";
+        break;
+    }
+    
 }

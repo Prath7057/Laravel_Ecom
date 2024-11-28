@@ -12,6 +12,11 @@
             @if ($panelName == 'admin')
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    @if (request()->routeIs('updateItem'))
+                    <li class="nav-item me-3">
+                        <a class="nav-link is-active">Update Item</a>
+                    </li>
+                    @endif
                     <li class="nav-item me-3">
                         <a class="nav-link {{ request()->routeIs('addItem') ? 'is-active' : '' }}" href="{{ route('addItem') }}">Add Item</a>
                     </li>

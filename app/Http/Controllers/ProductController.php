@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\image;
 use App\Models\product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class ProductController extends Controller
 {
@@ -38,7 +39,6 @@ class ProductController extends Controller
     //
     public function create()
     {
-        //
         $trendingProducts = Product::select('prod_id','prod_code', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
         ->with([
             'firstImage:image_prod_id,image_name'
@@ -46,9 +46,14 @@ class ProductController extends Controller
         ->orderBy('prod_id', 'desc')
         ->get();
         //
+        $encryptedProducts = $trendingProducts->map(function ($product) {
+            $product->encrypted_prod_id = Crypt::encrypt($product->prod_id);
+            return $product;
+        });        
+        //
         return view('admin.itemList',[
             'panelName' => 'admin',
-            'items' => $trendingProducts,
+            'items' => $encryptedProducts,
         ]);
     }
     //
@@ -104,6 +109,11 @@ class ProductController extends Controller
             'AllImages:image_prod_id,image_name'
         ])
         ->first(); 
+        //
+        if ($product) {
+            $product->secure_prod_id = Crypt::encrypt($product->prod_id);
+        }
+        //
         return view('admin.addItem',[
             'panelName' => 'admin',
             'product' => $product,

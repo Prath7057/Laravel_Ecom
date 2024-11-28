@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ProductController::class, 'index']);
 //
 Route::get('/admin', function () {
-    return view('admin',['panelName' => 'admin']);
+    return view('admin.addItem',['panelName' => 'admin']);
 });
 //
 Route::prefix('admin')->group(function () {
@@ -20,6 +20,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/itemList', [ProductController::class, 'create'])->name('itemList');
     //
     Route::post('/addItemData', [ProductController::class, 'store'])->name('addItemData');
+    //
+    Route::post('/updateItemData', [ProductController::class, 'update'])->name('updateItemData');
 });
 //
 Route::post('/addInputTypeFile', [AjaxController::class, 'addInputTypeFile'])->name('addInputTypeFile');
