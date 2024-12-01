@@ -36,6 +36,13 @@ function addInputTypeFile(inputTypeFileCount1) {
         .then((response) => response.text())
         .then((responseText) => {
             //
+            let responseTextArr = responseText.split("^");
+            if (inputTypeFileCount > responseTextArr[0]) {
+                document.getElementById("addMoreButton").style.visibility = "hidden";
+                alert('You Can add only ' + responseTextArr[0] + ' Images');
+                return;
+            }
+            //
             let deleteInputTypeFile = document.querySelectorAll(".deleteInputTypeFile");
             deleteInputTypeFile.forEach((element) => {
                 element.style.visibility = "hidden";
@@ -43,11 +50,11 @@ function addInputTypeFile(inputTypeFileCount1) {
             //
             let newDiv = document.getElementById("inputTypeFileDiv" + (inputTypeFileCount - 1));
             document.getElementById("inputTypeFileCount").value = inputTypeFileCount;
-            let responseTextArr = responseText.split("^");
-            newDiv.innerHTML = responseTextArr[1];
             if (inputTypeFileCount >= responseTextArr[0]) {
                 document.getElementById("addMoreButton").style.visibility = "hidden";
             }
+            newDiv.innerHTML = responseTextArr[1];
+            
         })
         .catch((error) => console.error("Error:", error));
 }

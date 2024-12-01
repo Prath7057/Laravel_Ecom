@@ -6,37 +6,28 @@ use App\Models\image;
 use App\Models\product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $trendingProducts = Product::where('prod_collection', 'trending')
+        $products = Product::whereIn('prod_collection', ['trending', 'top_selling', 'recommended'])
             ->select('prod_id', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
             ->with([
                 'firstImage:image_prod_id,image_name',
             ])
-            ->get();
-
-        $topSellingProducts = Product::where('prod_collection', 'top_selling')
-            ->select('prod_id', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
-            ->with([
-                'firstImage:image_prod_id,image_name',
-            ])
-            ->get();
-
-        $recommendedProducts = Product::where('prod_collection', 'recommended')
-            ->select('prod_id', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
-            ->with([
-                'firstImage:image_prod_id,image_name',
-            ])
-            ->get();
+            ->get()
+            ->groupBy('prod_collection')
+            ->map(function ($group) {
+                return $group->take(4);
+            });
 
         return view('index', [
             'panelName' => 'index',
-            'trendingProducts' => $trendingProducts,
-            'topSellingProducts' => $topSellingProducts,
-            'recommendedProducts' => $recommendedProducts,
+            'trendingProducts' => $products->get('trending', collect()),
+            'topSellingProducts' => $products->get('top_selling', collect()),
+            'recommendedProducts' => $products->get('recommended', collect()),
         ]);
     }
     //
@@ -50,7 +41,7 @@ class ProductController extends Controller
             ->get();
         //
         $encryptedProducts = $trendingProducts->map(function ($product) {
-            $product->encrypted_prod_id = Crypt::encrypt($product->prod_id);
+            $product->secure_prod_id = Crypt::encrypt($product->prod_id);
             return $product;
         });
         //
@@ -109,7 +100,7 @@ class ProductController extends Controller
         $product = Product::where('prod_id', $id)
             ->select('prod_id', 'prod_code', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
             ->with([
-                'AllImages:image_prod_id,image_name',
+                'AllImages:image_prod_id,image_name,image_id',
             ])
             ->first();
         //
@@ -144,15 +135,22 @@ class ProductController extends Controller
 
         $product->update($validated);
 
-        for ($i = 1; $i <= 4; $i++) {
-            if (($request->input('prod_image' . $i) == $request->input('old_image_name' . $i)) && ($request->input('image_prod_id' . $i) != '')) {
+        for ($i = 1; $i <= 5; $i++) {
+            if (($request->input('prod_image' . $i) == $request->input('old_image_name' . $i)) && ($request->input('image_id' . $i) != '')) {
                 continue;
-            } else if(1) {
-
-            }
+            } else if (($request->input('prod_image' . $i) != $request->input('old_image_name' . $i)) && ($request->input('image_id' . $i) != '')) {
+                $images = image::where('image_id', $request->input('image_id' . $i));
+                if ($images) {
+                    $imagePath = 'images/prod_image/' . $request->input('old_image_name' . $i);
+                    if (File::exists($imagePath)) {
+                        File::delete($imagePath);
+                    }
+                    $images->delete();
+                }                
+            }            
             //
-            $imageField = 'prod_iamge'.$i;
-            if ($request->hasFile($imageField)) { 
+            $imageField = 'prod_image' . $i;
+            if ($request->hasFile($imageField)) {
                 $image = $request->file($imageField);
                 $imageName = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
                 $image->move(public_path('images/prod_image'), $imageName);
@@ -176,10 +174,16 @@ class ProductController extends Controller
         return redirect()->route('updateItem', ['prod_id' => $product->prod_id])
             ->with('success', 'Product updated successfully.');
     }
-
     //
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-
+        $secureProdId = $request->input('secure_prod_id');
+        $decryptedProdId = Crypt::decrypt($secureProdId);
+        //
+        $product = Product::find($decryptedProdId);
+        $product->delete();
+        //
+        return redirect()->route('itemList')
+            ->with('success', 'Product Deleted successfully.');
     }
 }

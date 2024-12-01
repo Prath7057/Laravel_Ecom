@@ -18,7 +18,7 @@
                     </li>
                     @endif
                     <li class="nav-item me-3">
-                        <a class="nav-link {{ request()->routeIs('addItem') ? 'is-active' : '' }}" href="{{ route('addItem') }}">Add Item</a>
+                        <a class="nav-link {{ request()->routeIs('addItem') || request()->is('admin') ? 'is-active' : '' }}" href="{{ route('addItem') }}">Add Item</a>
                     </li>
                     <li class="nav-item me-3">
                         <a class="nav-link {{ request()->routeIs('itemList') ? 'is-active' : '' }}" href="{{ route('itemList') }}">Item List</a>
@@ -29,16 +29,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item me-3">
-                        <a class="nav-link is-active" href="#">Home</a>
+                        <a class="nav-link is-active" href="">Home</a>
                     </li>
                     <li class="nav-item me-3">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="">About</a>
                     </li>
                     <li class="nav-item me-3">
-                        <a class="nav-link" href="#">Offers</a>
+                        <a class="nav-link" href="">Offers</a>
                     </li>
                     <li class="nav-item me-3">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="">Contact</a>
                     </li>
                 </ul>
             </div>

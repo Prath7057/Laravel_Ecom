@@ -6,6 +6,7 @@
         {{ session('success') }}
     </div>
 @endif
+    {{$errors}}
     @php
         $product = $product ?? [];
     @endphp
@@ -143,7 +144,7 @@
                     @foreach ($product->AllImages as $images) 
                     {{-- this is comment --}}
                     <input type="hidden" type="text" readonly class="ms-2 form-control" 
-                    id="image_prod_id{{ $inputTypeFileCount+1 }}" name="image_prod_id{{ $inputTypeFileCount+1 }}" value="{{$images->image_prod_id}}" />  
+                    id="image_id{{ $inputTypeFileCount+1 }}" name="image_id{{ $inputTypeFileCount+1 }}" value="{{$images->image_id}}" />  
                     <input type="hidden" type="text" readonly class="ms-2 form-control" 
                     id="old_image_name{{ $inputTypeFileCount+1 }}" name="old_image_name{{ $inputTypeFileCount+1 }}" value="{{$images->image_name}}" />  
                     {{-- this is comment --}}

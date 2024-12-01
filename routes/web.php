@@ -22,6 +22,8 @@ Route::prefix('admin')->group(function () {
     Route::post('/addItemData', [ProductController::class, 'store'])->name('addItemData');
     //
     Route::post('/updateItemData', [ProductController::class, 'update'])->name('updateItemData');
+     //
+     Route::post('/deleteItem', [ProductController::class, 'destroy'])->name('deleteItem');
 });
 //
 Route::post('/addInputTypeFile', [AjaxController::class, 'addInputTypeFile'])->name('addInputTypeFile');
