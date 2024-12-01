@@ -1,12 +1,12 @@
 @extends('admin')
 
 @section('adminContent')
-@if (session('success'))
-    <div class="alert alert-success mt-3">
-        {{ session('success') }}
-    </div>
-@endif
-    {{$errors}}
+    @if (session('success'))
+        <div class="alert alert-success mt-3">
+            {{ session('success') }}
+        </div>
+    @endif
+    {{ $errors }}
     @php
         $product = $product ?? [];
     @endphp
@@ -126,7 +126,7 @@
             </div>
         @endif
 
-        @php $inputTypeFileCount = 1;@endphp        
+        @php $inputTypeFileCount = 1;@endphp
         <div class="mb-3 mt-2">
             <label for="customFile" class="form-label">Upload Image</label>
             <div class="input-group align-items-center mt-1">
@@ -136,43 +136,50 @@
                     <i class="fa-solid fa-plus" style="font-size: 1.2rem;"></i>
                 </span>
                 <input type="file" class="ms-2 form-control" id="prod_image{{ $inputTypeFileCount }}"
-                    name="prod_image{{ $inputTypeFileCount }}" aria-label="Upload" accept="image/*">                
-            </div>            
+                    name="prod_image{{ $inputTypeFileCount }}" aria-label="Upload" accept="image/*">
+            </div>
             @if (isset($product->AllImages))
-            @php $length = count($product->AllImages);@endphp
+                @php $length = count($product->AllImages);@endphp
                 <div class="" style="position: relative;">
-                    @foreach ($product->AllImages as $images) 
-                    {{-- this is comment --}}
-                    <input type="hidden" type="text" readonly class="ms-2 form-control" 
-                    id="image_id{{ $inputTypeFileCount+1 }}" name="image_id{{ $inputTypeFileCount+1 }}" value="{{$images->image_id}}" />  
-                    <input type="hidden" type="text" readonly class="ms-2 form-control" 
-                    id="old_image_name{{ $inputTypeFileCount+1 }}" name="old_image_name{{ $inputTypeFileCount+1 }}" value="{{$images->image_name}}" />  
-                    {{-- this is comment --}}
+                    @foreach ($product->AllImages as $images)
+                        {{-- this is comment --}}
+                        <input type="hidden" type="text" readonly class="ms-2 form-control"
+                            id="image_id{{ $inputTypeFileCount + 1 }}" name="image_id{{ $inputTypeFileCount + 1 }}"
+                            value="{{ $images->image_id }}" />
+                        <input type="hidden" type="text" readonly class="ms-2 form-control"
+                            id="old_image_name{{ $inputTypeFileCount + 1 }}"
+                            name="old_image_name{{ $inputTypeFileCount + 1 }}" value="{{ $images->image_name }}" />
+                        {{-- this is comment --}}
                         <div id="inputTypeFileDiv{{ $inputTypeFileCount }}" class="input-group align-items-center mt-1">
                             @php $inputTypeFileCount += 1;@endphp
                             <span id="deleteButton{{ $inputTypeFileCount }}" title="Delete Image"
                                 class="rounded-pill deleteInputTypeFile"
-                                style="cursor:pointer;color:white; display: flex; align-items: center; justify-content: center;background:rgb(255, 0, 0); @if ($length != $inputTypeFileCount-1) visibility: hidden;  @endif"
+                                style="cursor:pointer;color:white; display: flex; align-items: center; justify-content: center;background:rgb(255, 0, 0); @if ($length != $inputTypeFileCount - 1) visibility: hidden; @endif"
                                 onclick="deleteInputTypeFile('{{ $inputTypeFileCount }}');">
                                 <i class="fa-solid fa-minus" style="font-size: 1.2rem;"></i>
                             </span>
-                            <img class="ms-2 " src="{{ asset('images/prod_image/'.$images->image_name) }}" alt="image" style="width:75px;height:50px;object-fit: contain;" 
-                            onclick="previewImage('{{ asset('images/prod_image/'.$images->image_name) }}');" />
-                            <input type="text" readonly class="ms-2 form-control" id="prod_image{{ $inputTypeFileCount }}"
-                             name="prod_image{{ $inputTypeFileCount }}" value="{{$images->image_name}}" aria-label="Upload" accept="image/*" />
-                        </div>                       
+                            <img class="ms-2 " src="{{ asset('images/prod_image/' . $images->image_name) }}"
+                                alt="image" style="width:75px;height:50px;object-fit: contain;"
+                                onclick="previewImage('{{ asset('images/prod_image/' . $images->image_name) }}');" />
+                            <input type="text" readonly class="ms-2 form-control"
+                                id="prod_image{{ $inputTypeFileCount }}" name="prod_image{{ $inputTypeFileCount }}"
+                                value="{{ $images->image_name }}" aria-label="Upload" accept="image/*" />
+                        </div>
                     @endforeach
-                    <div id="imagePreviewDiv" style="position: absolute; width:200px; height:200px; border:1px solid black; bottom:-45%; left:8%; background:white; display:none;"
+                    <div id="imagePreviewDiv"
+                        style="position: absolute; width:200px; height:200px; border:1px solid black; bottom:-45%; left:8%; background:white; display:none;"
                         onclick="previewImage('');">
-                        <img id="imagePreview" src="" alt="Preview" style="width:100%; height:100%; object-fit:contain;">
+                        <img id="imagePreview" src="" alt="Preview"
+                            style="width:100%; height:100%; object-fit:contain;">
                         <input type="hidden" id="isImageOpen" name="isImageOpen" value="0" />
-                    </div>                    
-                </div>                
+                    </div>
+                </div>
             @endif
-            <input type="hidden" id="inputTypeFileCount" name="inputTypeFileCount" value="{{ $inputTypeFileCount }}" />
+            <input type="hidden" id="inputTypeFileCount" name="inputTypeFileCount"
+                value="{{ $inputTypeFileCount }}" />
             <div id="inputTypeFileDiv{{ $inputTypeFileCount }}" class="input-group align-items-center mt-1">
             </div>
-        </div>        
+        </div>
         <div class="mt-2 d-grid gap-2 d-md-flex justify-content-md-start">
             @if ($product)
                 <button class="btn btn-info" type="submit">Update</button>
@@ -185,13 +192,15 @@
     </div>
 @endsection
 @push('scripts')
-<script>
-    document.addEventListener('click', function(event) {
-        const previewDiv = document.getElementById('imagePreviewDiv');
-        if (!previewDiv.contains(event.target) && event.target.tagName !== 'IMG') {
-            document.getElementById('isImageOpen').value = '0';
-            previewDiv.style.display = 'none';
-        }
-    });
-</script>  
+    <script>
+        document.addEventListener('click', function(event) {
+            if (document.getElementById('imagePreviewDiv') != null) {
+                const previewDiv = document.getElementById('imagePreviewDiv');
+                if (!previewDiv.contains(event.target) && event.target.tagName !== 'IMG') {
+                    document.getElementById('isImageOpen').value = '0';
+                    previewDiv.style.display = 'none';
+                }
+            }
+        });
+    </script>
 @endpush()
