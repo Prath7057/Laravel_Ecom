@@ -71,3 +71,16 @@ function deleteInputTypeFile(inputTypeFileCount) {
     }
     
 }
+function previewImage(imageSrc) {
+    if (document.getElementById('isImageOpen').value == '0') {
+        const imagePreview = document.getElementById('imagePreview');
+        imagePreview.src = imageSrc;
+        document.getElementById('isImageOpen').value = '1';
+        const previewDiv = document.getElementById('imagePreviewDiv');
+        previewDiv.style.display = 'block';
+    } else {
+        let previewDiv = document.getElementById('imagePreviewDiv');
+        document.getElementById('isImageOpen').value = '0';
+        previewDiv.style.display = 'none';
+    }
+}

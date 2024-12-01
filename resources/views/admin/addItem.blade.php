@@ -1,6 +1,11 @@
 @extends('admin')
 
 @section('adminContent')
+@if (session('success'))
+    <div class="alert alert-success mt-3">
+        {{ session('success') }}
+    </div>
+@endif
     @php
         $product = $product ?? [];
     @endphp
@@ -54,7 +59,6 @@
                     placeholder="Add Item name Upto 16 Characters">
             </div>
         </div>
-
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">
                 Item Description<span style="color: red;"> *</span>
@@ -132,32 +136,42 @@
                 </span>
                 <input type="file" class="ms-2 form-control" id="prod_image{{ $inputTypeFileCount }}"
                     name="prod_image{{ $inputTypeFileCount }}" aria-label="Upload" accept="image/*">                
-            </div>
-            @php $length = count($product->AllImages);@endphp
+            </div>            
             @if (isset($product->AllImages))
-                <div class="">
-                    @foreach ($product->AllImages as $images)                        
+            @php $length = count($product->AllImages);@endphp
+                <div class="" style="position: relative;">
+                    @foreach ($product->AllImages as $images) 
+                    {{-- this is comment --}}
+                    <input type="hidden" type="text" readonly class="ms-2 form-control" 
+                    id="image_prod_id{{ $inputTypeFileCount+1 }}" name="image_prod_id{{ $inputTypeFileCount+1 }}" value="{{$images->image_prod_id}}" />  
+                    <input type="hidden" type="text" readonly class="ms-2 form-control" 
+                    id="old_image_name{{ $inputTypeFileCount+1 }}" name="old_image_name{{ $inputTypeFileCount+1 }}" value="{{$images->image_name}}" />  
+                    {{-- this is comment --}}
                         <div id="inputTypeFileDiv{{ $inputTypeFileCount }}" class="input-group align-items-center mt-1">
-                            <span id="deleteButton{{ $inputTypeFileCount }}" title="add more images (upto 4)"
+                            @php $inputTypeFileCount += 1;@endphp
+                            <span id="deleteButton{{ $inputTypeFileCount }}" title="Delete Image"
                                 class="rounded-pill deleteInputTypeFile"
-                                style="cursor:pointer;color:white; display: flex; align-items: center; justify-content: center;background:rgb(255, 0, 0); @if ($length != $inputTypeFileCount) visibility: hidden;  @endif"
+                                style="cursor:pointer;color:white; display: flex; align-items: center; justify-content: center;background:rgb(255, 0, 0); @if ($length != $inputTypeFileCount-1) visibility: hidden;  @endif"
                                 onclick="deleteInputTypeFile('{{ $inputTypeFileCount }}');">
                                 <i class="fa-solid fa-minus" style="font-size: 1.2rem;"></i>
                             </span>
-                            <img class="ms-2 " src="{{ asset('images/prod_image/'.$images->image_name) }}" alt="image" style="width:75px;height:50px;object-fit: contain;" />
-                            <input type="file" class="ms-2 form-control" id="prod_image{{ $inputTypeFileCount }}"
-                                name="prod_image{{ $inputTypeFileCount }}" aria-label="Upload" accept="image/*">
-                        </div>
-                        @php $inputTypeFileCount += 1;@endphp
+                            <img class="ms-2 " src="{{ asset('images/prod_image/'.$images->image_name) }}" alt="image" style="width:75px;height:50px;object-fit: contain;" 
+                            onclick="previewImage('{{ asset('images/prod_image/'.$images->image_name) }}');" />
+                            <input type="text" readonly class="ms-2 form-control" id="prod_image{{ $inputTypeFileCount }}"
+                             name="prod_image{{ $inputTypeFileCount }}" value="{{$images->image_name}}" aria-label="Upload" accept="image/*" />
+                        </div>                       
                     @endforeach
-                </div>
+                    <div id="imagePreviewDiv" style="position: absolute; width:200px; height:200px; border:1px solid black; bottom:-45%; left:8%; background:white; display:none;"
+                        onclick="previewImage('');">
+                        <img id="imagePreview" src="" alt="Preview" style="width:100%; height:100%; object-fit:contain;">
+                        <input type="hidden" id="isImageOpen" name="isImageOpen" value="0" />
+                    </div>                    
+                </div>                
             @endif
-            <input type="hidden" id="inputTypeFileCount" name="inputTypeFileCount"
-                    value="{{ $inputTypeFileCount }}" />
+            <input type="hidden" id="inputTypeFileCount" name="inputTypeFileCount" value="{{ $inputTypeFileCount }}" />
             <div id="inputTypeFileDiv{{ $inputTypeFileCount }}" class="input-group align-items-center mt-1">
             </div>
-        </div>
-        
+        </div>        
         <div class="mt-2 d-grid gap-2 d-md-flex justify-content-md-start">
             @if ($product)
                 <button class="btn btn-info" type="submit">Update</button>
@@ -169,3 +183,14 @@
     </div>
     </div>
 @endsection
+@push('scripts')
+<script>
+    document.addEventListener('click', function(event) {
+        const previewDiv = document.getElementById('imagePreviewDiv');
+        if (!previewDiv.contains(event.target) && event.target.tagName !== 'IMG') {
+            document.getElementById('isImageOpen').value = '0';
+            previewDiv.style.display = 'none';
+        }
+    });
+</script>  
+@endpush()

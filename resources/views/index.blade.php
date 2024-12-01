@@ -9,21 +9,21 @@ Home
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="https://via.placeholder.com/1200x300" class="d-block w-100" alt="First slide">
+            <img src="{{asset('images/site_images/slider.webp')}}" class="d-block w-100" alt="First slide">
             <div class="carousel-caption d-none d-md-block text-black">
                 <h5>First Slide Title</h5>
                 <p>Description for the first slide.</p>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="https://via.placeholder.com/1200x300" class="d-block w-100" alt="Second slide">
+            <img src="{{asset('images/site_images/slider.webp')}}" class="d-block w-100" alt="Second slide">
             <div class="carousel-caption d-none d-md-block text-black">
                 <h5>Second Slide Title</h5>
                 <p>Description for the second slide.</p>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="https://via.placeholder.com/1200x300" class="d-block w-100" alt="Third slide">
+            <img src="{{asset('images/site_images/slider.webp')}}" class="d-block w-100" alt="Third slide">
             <div class="carousel-caption d-none d-md-block text-black">
                 <h5>Third Slide Title</h5>
                 <p>Description for the third slide.</p>
@@ -38,14 +38,15 @@ Home
     </button>
 </div>
 
-<div class="container-fluid">
+@if (count($trendingProducts) > 0)
+<div class="container-fluid" style="background-color: #f7faeb">
   <h2>Trending Items</h2>
   <div class="row" style="">
       @foreach($trendingProducts as $product)
       <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
           <div class="card" style="width: 100%;">
               <div style="height: 200px; overflow: hidden;">
-                <img src="{{ $product->firstImage && $product->firstImage->image_name ? asset('images/prod_image/' . $product->firstImage->image_name) : 'https://via.placeholder.com/300x200' }}" 
+                <img src="{{ $product->firstImage && $product->firstImage->image_name ? asset('images/prod_image/' . $product->firstImage->image_name) : asset('images/site_images/prod_image.webp') }}" 
                 alt="" class="card-img-top w-100 h-100" style="object-fit: contain;"
                     >
               </div>
@@ -63,15 +64,17 @@ Home
       @endforeach
   </div>
 </div>
+@endif
 
-<div class="container-fluid">
+@if (count($topSellingProducts) > 0)
+<div class="container-fluid" style="background-color: #ebfaeb">
   <h2>Highest Selling Items</h2>
   <div class="row" style="">
       @foreach($topSellingProducts as $product)
       <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
           <div class="card" style="width: 100%;">
               <div style="height: 200px; overflow: hidden;">
-                  <img src="{{ $product->firstImage && $product->firstImage->image_name ? asset('images/prod_image/' . $product->firstImage->image_name) : 'https://via.placeholder.com/300x200' }}" 
+                  <img src="{{ $product->firstImage && $product->firstImage->image_name ? asset('images/prod_image/' . $product->firstImage->image_name) : asset('images/site_images/prod_image.webp') }}" 
                   alt="{{ $product->prod_name }}" class="card-img-top w-100 h-100" style="object-fit: contain;"
                       >
               </div>
@@ -89,15 +92,17 @@ Home
       @endforeach
   </div>
 </div>
+@endif
 
-<div class="container-fluid">
+@if(count($recommendedProducts) > 0)
+<div class="container-fluid" style="background-color: #ebf9fa">
     <h2>Recommanded Items</h2>
     <div class="row" style="">
         @foreach($recommendedProducts as $product)
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
             <div class="card" style="width: 100%;">
                 <div style="height: 200px; overflow: hidden;">
-                    <img src="{{ $product->firstImage && $product->firstImage->image_name ? asset('images/prod_image/' . $product->firstImage->image_name) : 'https://via.placeholder.com/300x200' }}" 
+                    <img src="{{ $product->firstImage && $product->firstImage->image_name ? asset('images/prod_image/' . $product->firstImage->image_name) : asset('images/site_images/prod_image.webp') }}" 
                     alt="{{ $product->prod_name }}" class="card-img-top w-100 h-100" style="object-fit: contain;"
                         >
                 </div>
@@ -115,4 +120,5 @@ Home
         @endforeach
     </div>
   </div>
-@endsection
+@endif
+  @endsection
