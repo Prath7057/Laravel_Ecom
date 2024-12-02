@@ -23,7 +23,7 @@ function addInputTypeFile(inputTypeFileCount1) {
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content");
 
-    fetch("/addInputTypeFile", {
+    fetch("addInputTypeFile", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -58,6 +58,7 @@ function addInputTypeFile(inputTypeFileCount1) {
         })
         .catch((error) => console.error("Error:", error));
 }
+//
 document.addEventListener("DOMContentLoaded", function () {
     if (document.getElementById("inputTypeFileCount") != null)
         if (document.getElementById("secure_prod_id") != null) {
