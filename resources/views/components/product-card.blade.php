@@ -8,7 +8,7 @@
             <h5 class="card-title">{{ $product->prod_name }}</h5>
             <p class="card-text">{{ $product->prod_desc }}</p>
             <div class="d-flex justify-content-between align-items-center">
-                <a href="#" class="btn btn-warning">
+                <a href="#" class="btn btn-warning" style="background: {{ $addTocartBackground }}">
                     <i class="fa fa-shopping-cart"></i> Add To cart
                 </a>
                 @php
@@ -16,7 +16,7 @@
                     $originalPrice = $product->prod_amount;
                     $mrp = round($originalPrice / (1 - $discountPercentage / 100), 2);
                 @endphp
-                <a class="" style="font-size:1.5rem;">
+                <a class="" style="font-size:1.5rem;" title="Click here to see more details">
                     <sup>₹</sup>{{ $originalPrice }}
                 </a>
             </div>

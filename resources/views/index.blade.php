@@ -52,6 +52,7 @@
     @php
         $divBackgroundColors = ['#f4fff0', '#faf3e3', '#f9fae6'];
         $headingBackgroundColors = ['#e8fae1', '#faeed2', '#f9fadc'];
+        $addToCartBackgroundColors = ['#d4f7b1', '#f9e7d0', '#f1f9d9'];
     @endphp
     @foreach (['Trending Items' => $trendingProducts, 'Highest Selling Items' => $topSellingProducts, 'Recommended Items' => $recommendedProducts] as $title => $products)
         @if ($products->isNotEmpty())
@@ -61,11 +62,15 @@
                     <a href="" class="btn btn-link text-decoration-underline me-2" style="font-size: 1.2rem;">View All</a>
                 </div>
                 <div class="row">
-                  @php $backgroundColor = $headingBackgroundColors[$loop->index]; @endphp
+                  @php 
+                  $backgroundColor = $headingBackgroundColors[$loop->index];
+                  $addTocartBackground = $addToCartBackgroundColors[$loop->index];
+                  @endphp
                   @foreach ($products as $index => $product)
                       @include('components.product-card', [
                           'product' => $product,
-                          'backgroundColor' => $backgroundColor
+                          'backgroundColor' => $backgroundColor,
+                          'addTocartBackground' => $addTocartBackground
                       ])
                   @endforeach
               </div>              
