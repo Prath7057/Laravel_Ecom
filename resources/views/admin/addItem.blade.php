@@ -1,12 +1,19 @@
 @extends('admin')
 
+@push('styles')
+    <style>
+        .border-red{
+            border: 1px solid red;
+        }
+        .validation-msg{
+            font-size:0.9rem;
+            position: absolute;
+            bottom:-50%;right:0%;
+        }
+    </style>
+@endpush
+
 @section('adminContent')
-    @if (session('success'))
-        <div class="alert alert-success mt-3">
-            {{ session('success') }}
-        </div>
-    @endif
-    {{ $errors }}
     @php
         $product = $product ?? [];
     @endphp
@@ -27,19 +34,33 @@
         @csrf
         <div class="mb-3 row">
             <input type="hidden" id="secure_prod_id" name="secure_prod_id" value="{{ $product->secure_prod_id ?? '' }}" />
-            <div class="col-md-6">
+            <div class="col-md-6" >
                 <label for="prod_code" class="form-label">
                     Item Code<span style="color: red;"> *</span>
                 </label>
-                <input type="text" class="form-control" value="{{ old('prod_code', $product->prod_code ?? '') }}"
-                    id="prod_code" name="prod_code" placeholder="Item Code">
+                <div style="position: relative;">
+                    <input type="text" class="form-control {{ $errors->has('prod_code') ? '' : '' }}" 
+                       value="{{ old('prod_code', $product->prod_code ?? '') }}"
+                       id="prod_code" name="prod_code" placeholder="Item Code">            
+                    @if ($errors->has('prod_code'))
+                        <span class="error-message text-danger validation-msg">
+                            {{  $errors->first('prod_code')  }}
+                        </span>
+                    @endif
+                </div>
             </div>
             <div class="col-md-6">
                 <label for="prod_amount" class="form-label">
                     Item Price<span style="color: red;"> *</span>
                 </label>
-                <input type="text" class="form-control" value="{{ old('prod_amount', $product->prod_amount ?? '') }}"
-                    id="prod_amount" name="prod_amount" placeholder="Add Item Price">
+                <div style="position: relative;">
+                    <input type="text" class="form-control {{ $errors->has('prod_amount') ? '' : '' }}" 
+                        value="{{ old('prod_amount', $product->prod_amount ?? '') }}"
+                        id="prod_amount" name="prod_amount" placeholder="Add Item Price">
+                        @if ($errors->has('prod_amount'))
+                        <span class="error-message text-danger validation-msg">{{  $errors->first('prod_amount')  }}</span>
+                    @endif
+                </div>
             </div>
         </div>
         <div class="mb-3 row">
@@ -47,85 +68,102 @@
                 <label for="itemName1" class="form-label">
                     Item Category<span style="color: red;"> *</span>
                 </label>
-                <input type="text" class="form-control" id="prod_category" name="prod_category"
-                    value="{{ old('prod_category', $product->prod_category ?? '') }}" required
-                    placeholder="Add Item Category Upto 16 Characters">
+                <div style="position: relative;">
+                    <input type="text" class="form-control {{ $errors->has('prod_category') ? '' : '' }}"
+                           value="{{ old('prod_category', $product->prod_category ?? '') }}" 
+                           id="prod_category" name="prod_category" placeholder="Add Item Category Upto 16 Characters">
+                        @if ($errors->has('prod_category'))
+                        <span class="error-message text-danger validation-msg">{{  $errors->first('prod_category')  }}</span>
+                    @endif
+                </div>
             </div>
             <div class="col-md-6">
                 <label for="itemName2" class="form-label">
                     Item Name<span style="color: red;"> *</span>
                 </label>
-                <input type="text" class="form-control" id="prod_name" name="prod_name"
-                    value="{{ old('prod_name', $product->prod_name ?? '') }}" required
-                    placeholder="Add Item name Upto 16 Characters">
+                <div style="position: relative;">
+                    <input type="text" class="form-control {{ $errors->has('prod_name') ? '' : '' }}" id="prod_name" name="prod_name"
+                        value="{{ old('prod_name', $product->prod_name ?? '') }}" 
+                        placeholder="Add Item name Upto 16 Characters">
+                        @if ($errors->has('prod_name'))
+                        <span class="error-message text-danger validation-msg">{{  $errors->first('prod_name')  }}</span>
+                    @endif
+                </div>
             </div>
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">
                 Item Description<span style="color: red;"> *</span>
             </label>
-            <textarea class="form-control" id="prod_desc" name="prod_desc" rows="3"
-                placeholder="Add Item Description up to 64 Characters" oninput="updateWordCount()">{{ old('prod_desc', $product->prod_desc ?? '') }}</textarea>
-            <small id="wordCount" class="form-text text-muted">Word count: 0</small>
+                <textarea class="form-control {{ $errors->has('prod_desc') ? 'border-red' : '' }}" 
+                          id="prod_desc" name="prod_desc" rows="3" 
+                          placeholder="Add Item Description up to 64 Characters" 
+                          oninput="updateWordCount()">{{ old('prod_desc', $product->prod_desc ?? '') }}</textarea>
+                          
+                <small id="wordCount" class="form-text text-muted">
+                    Word count: 0
+                </small>
         </div>
-        <label for="exampleFormControlTextarea1" class="form-label">
-            Item Collection
-            <span style="color: red;">*</span>
-        </label>
-
-        @if (isset($product->prod_id))
-            <div class="d-flex align-items-center">
-                <div class="form-check me-3">
-                    <input class="form-check-input" style="border: 1.5px solid rgb(26, 26, 26)" type="radio"
-                        name="prod_collection" id="prod_collection1" value="trending"
-                        {{ $product->prod_collection ? ($product->prod_collection == 'trending' ? 'checked' : '') : '' }}>
-                    <label class="form-check-label" for="prod_collection1">
-                        Trending
-                    </label>
-                </div>
-                <div class="form-check me-3">
-                    <input class="form-check-input" style="border: 1.5px solid rgb(26, 26, 26)" type="radio"
-                        name="prod_collection" id="prod_collection2" value="top_selling"
-                        {{ $product->prod_collection == 'top_selling' ? 'checked' : '' }}>
-                    <label class="form-check-label" for="prod_collection2">
-                        Best Seller
-                    </label>
-                </div>
-                <div class="form-check me-3">
-                    <input class="form-check-input" style="border: 1.5px solid rgb(26, 26, 26)" type="radio"
-                        name="prod_collection" id="prod_collection3" value="recommended"
-                        {{ $product->prod_collection == 'recommended' ? 'checked' : '' }}>
-                    <label class="form-check-label" for="prod_collection3">
-                        Recommanded
-                    </label>
-                </div>
+        <div >
+            <div style="position: relative;">
+                <label for="exampleFormControlTextarea1" class="form-label">
+                    Item Collection
+                    <span style="color: red;">*</span>
+                </label>
             </div>
-        @else
-            <div class="d-flex align-items-center">
-                <div class="form-check me-3">
-                    <input class="form-check-input" style="border: 1.5px solid rgb(26, 26, 26)" type="radio"
-                        name="prod_collection" id="prod_collection1" value="trending">
-                    <label class="form-check-label" for="prod_collection1">
-                        Trending
-                    </label>
+            @if (isset($product->prod_id))
+                <div class="d-flex align-items-center">
+                    <div class="form-check me-3">
+                        <input class="form-check-input" style="border: 1.5px solid rgb(26, 26, 26)" type="radio"
+                            name="prod_collection" id="prod_collection1" value="trending"
+                            {{ $product->prod_collection ? ($product->prod_collection == 'trending' ? 'checked' : '') : '' }}>
+                        <label class="form-check-label" for="prod_collection1">
+                            Trending
+                        </label>
+                    </div>
+                    <div class="form-check me-3">
+                        <input class="form-check-input" style="border: 1.5px solid rgb(26, 26, 26)" type="radio"
+                            name="prod_collection" id="prod_collection2" value="top_selling"
+                            {{ $product->prod_collection == 'top_selling' ? 'checked' : '' }}>
+                        <label class="form-check-label" for="prod_collection2">
+                            Best Seller
+                        </label>
+                    </div>
+                    <div class="form-check me-3">
+                        <input class="form-check-input" style="border: 1.5px solid rgb(26, 26, 26)" type="radio"
+                            name="prod_collection" id="prod_collection3" value="recommended"
+                            {{ $product->prod_collection == 'recommended' ? 'checked' : '' }}>
+                        <label class="form-check-label" for="prod_collection3">
+                            Recommanded
+                        </label>
+                    </div>
                 </div>
-                <div class="form-check me-3">
-                    <input class="form-check-input" style="border: 1.5px solid rgb(26, 26, 26)" type="radio"
-                        name="prod_collection" id="prod_collection2" value="top_selling">
-                    <label class="form-check-label" for="prod_collection2">
-                        Best Seller
-                    </label>
+            @else
+                <div class="d-flex align-items-center">
+                    <div class="form-check me-3">
+                        <input class="form-check-input" style="{{ $errors->has('prod_collection') ? 'border: 1.5px solid red' : 'border: 1.5px solid rgb(26, 26, 26)' }}" type="radio"
+                            name="prod_collection" id="prod_collection1" value="trending">
+                        <label class="form-check-label" for="prod_collection1">
+                            Trending
+                        </label>
+                    </div>
+                    <div class="form-check me-3">
+                        <input class="form-check-input" style="{{ $errors->has('prod_collection') ? 'border: 1.5px solid red' : 'border: 1.5px solid rgb(26, 26, 26)' }}" type="radio"
+                            name="prod_collection" id="prod_collection2" value="top_selling">
+                        <label class="form-check-label" for="prod_collection2">
+                            Best Seller
+                        </label>
+                    </div>
+                    <div class="form-check me-3">
+                        <input class="form-check-input" style="{{ $errors->has('prod_collection') ? 'border: 1.5px solid red' : 'border: 1.5px solid rgb(26, 26, 26)' }}" type="radio"
+                            name="prod_collection" id="prod_collection3" value="recommended">
+                        <label class="form-check-label" for="prod_collection3">
+                            Recommanded
+                        </label>
+                    </div>
                 </div>
-                <div class="form-check me-3">
-                    <input class="form-check-input" style="border: 1.5px solid rgb(26, 26, 26)" type="radio"
-                        name="prod_collection" id="prod_collection3" value="recommended">
-                    <label class="form-check-label" for="prod_collection3">
-                        Recommanded
-                    </label>
-                </div>
-            </div>
-        @endif
-
+            @endif
+        </div>
         @php $inputTypeFileCount = 1;@endphp
         <div class="mb-3 mt-2">
             <label for="customFile" class="form-label">Upload Image</label>
