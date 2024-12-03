@@ -20,7 +20,10 @@ class ProductController extends Controller
             ->get()
             ->groupBy('prod_collection')
             ->map(function ($group) {
-                return $group->take(4);
+                return $group->take(4)->map(function ($product) {
+                    $product->secure_prod_id = Crypt::encrypt($product->prod_id);
+                    return $product;
+                });
             });
 
         return view('index', [
@@ -146,8 +149,8 @@ class ProductController extends Controller
                         File::delete($imagePath);
                     }
                     $images->delete();
-                }                
-            }            
+                }
+            }
             //
             $imageField = 'prod_image' . $i;
             if ($request->hasFile($imageField)) {
@@ -185,5 +188,24 @@ class ProductController extends Controller
         //
         return redirect()->route('itemList')
             ->with('success', 'Product Deleted successfully.');
+    }
+    //
+    public function viewItem(Request $request)
+    {
+        $secureProdId = $request->input('secure_prod_id');
+        $decryptedProdId = Crypt::decrypt($secureProdId);
+        //
+        $product = Product::where('prod_id', $decryptedProdId)
+        ->select('prod_id', 'prod_code', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
+        ->with([
+            'AllImages:image_prod_id,image_name,image_id',
+        ])
+        ->first();
+        //
+            // dd($product);
+        //
+        return view('components.viewItem', [
+            'product' => $product,
+        ]);
     }
 }

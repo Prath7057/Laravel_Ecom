@@ -29,7 +29,9 @@
 
 @section('contents')
     @include('components.header')
-
+    @php
+        use Illuminate\Support\Str;
+    @endphp
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             @foreach (['First', 'Second', 'Third'] as $key => $title)
