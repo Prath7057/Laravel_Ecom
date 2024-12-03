@@ -51,7 +51,7 @@ button {
     transition: all 0.30s ease-out;
   }
 body {
-	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	font-family: 'Times New Roman', Times, serif !important;
 	font-size: 1rem;
 	font-weight: 400;
 	line-height: 1.5;
@@ -60,7 +60,7 @@ body {
 }
 
 .brand {
-    font-family: inherit;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 1.5rem;
     font-weight: 700;
     line-height: 1.15;

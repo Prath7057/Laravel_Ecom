@@ -60,7 +60,7 @@
         @if ($products->isNotEmpty())
             <div class="container-fluid" style="background-color: {{ $divBackgroundColors[$loop->index]  }}">
                 <div class="d-flex justify-content-between align-items-center" style="background-color: {{ $headingBackgroundColors[$loop->index] }}">
-                    <h2 class="mt-2">{{ $title }}</h2>
+                    <h3 class="mt-2">{{ $title }}</h3>
                     <a href="" class="btn btn-link text-decoration-underline me-2" style="font-size: 1.2rem;">View All</a>
                 </div>
                 <div class="row">
