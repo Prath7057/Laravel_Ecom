@@ -202,7 +202,7 @@ class ProductController extends Controller
         ])
         ->first();
         //
-            // dd($product);
+            // dd($product->AllImages[0]);
         //
         return view('components.viewItem', [
             'product' => $product,
