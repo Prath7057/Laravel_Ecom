@@ -30,6 +30,7 @@
                             <img id="mainImageDiv"
                                 src="{{ asset('images/prod_image/' . $product->AllImages[0]->image_name) }}"
                                 class="img-fluid" style="height:350px; width:100%;" />
+                                <img id="orgImageDiv" src="{{ asset('images/prod_image/' . $product->AllImages[0]->image_name) }}" style="display:none;" />
                         </div>
                         <div class="col-lg-12 col-12 mt-3">
                             <div class="d-flex justify-content-center">
@@ -39,7 +40,8 @@
                                             <img src="{{ asset('images/prod_image/' . $product->AllImages[$i]->image_name) }}"
                                                 class="img-fluid thumbnail" style="height: 120px; width: 100%;"
                                                 onmouseover="document.getElementById('mainImageDiv').src = this.src;"
-                                                onclick="document.getElementById('mainImageDiv').src = this.src;" />
+                                                onclick="document.getElementById('mainImageDiv').src = this.src;"
+                                                onmouseout="document.getElementById('mainImageDiv').src = document.getElementById('orgImageDiv').src;" />
                                         </div>
                                     @endif
                                 @endfor
