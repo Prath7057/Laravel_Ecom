@@ -13,7 +13,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::whereIn('prod_collection', ['trending', 'top_selling', 'recommended'])
-            ->select('prod_id', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
+            ->select('prod_id', 'prod_code', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
             ->with([
                 'firstImage:image_prod_id,image_name',
             ])
@@ -201,8 +201,6 @@ class ProductController extends Controller
             'AllImages:image_prod_id,image_name,image_id',
         ])
         ->first();
-        //
-            // dd($product->AllImages[0]);
         //
         return view('components.viewItem', [
             'product' => $product,
