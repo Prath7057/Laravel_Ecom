@@ -54,4 +54,5 @@
             </div>
         </div>
     </div>
+    {{-- end view item code --}}
 @endsection
