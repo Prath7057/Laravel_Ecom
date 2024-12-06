@@ -1,10 +1,16 @@
 <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
     <div class="card" style="width: 100%;">
         <form method="POST" style="cursor: pointer;"
-            action="{{ route('viewItem', ['prod_id' => $product->prod_id, 'prod_category' => Str::slug($product->prod_category)]) }}"
+            action="{{ route('viewItem', [
+                'prod_category_slg' => Str::slug($product->prod_category),                
+                'prod_code_slg' => Str::slug($product->prod_code),
+                'prod_name_slg' => Str::slug($product->prod_name),
+            ]) }}"
             onclick="submit(this);">
             @csrf
             <input type="hidden" id="secure_prod_id" name="secure_prod_id" value="{{ $product->secure_prod_id }}" />
+            <input type="hidden" id="prod_category" name="prod_category" value="{{ $product->prod_category }}" />
+            <input type="hidden" id="prod_name" name="prod_name" value="{{ $product->prod_name }}" />
             <div style="height: 200px; overflow: hidden;">
                 <img src="{{ $product->firstImage->image_name ? asset('images/prod_image/' . $product->firstImage->image_name) : asset('images/site_images/prod_image.webp') }}"
                     alt="{{ $product->prod_name }}" class="card-img-top w-100 h-100" style="object-fit: contain;">

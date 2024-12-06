@@ -50,7 +50,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-7 col-12" style="background-color: rgb(255, 255, 255);">
+            <div class="col-lg-7 col-12" style="background-color: rgb(228, 228, 228);">
+                <div class="mt-1" style="color: gray;font-size:1.1rem">                    
+                    <a  href="/"> Home </a> <i class="fa-solid fa-chevron-right"></i>
+                    <a  href="/viewItem/{{$product->prod_category}}"> {{$product->prod_category}} </a> <i class="fa-solid fa-chevron-right"></i>
+                    <a  href="/viewItem/{{$product->prod_category}}/{{$product->prod_name}}"> {{$product->prod_name}} </a> <i class="fa-solid fa-chevron-right"></i>
+                    <a class="" href="/viewItem/{{$product->prod_category}}/{{$product->prod_name}}/{{$product->prod_code}}"> {{$product->prod_code}} </a>
+                </div>
             </div>
         </div>
     </div>
