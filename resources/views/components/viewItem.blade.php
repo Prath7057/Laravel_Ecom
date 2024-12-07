@@ -53,9 +53,9 @@
             <div class="col-lg-7 col-12" style="background-color: rgb(228, 228, 228);">
                 <div class="mt-1" style="color: gray;font-size:1.1rem">                    
                     <a  href="/"> Home </a> <i class="fa-solid fa-chevron-right"></i>
-                    <a  href="/viewItem/{{$product->prod_category}}"> {{$product->prod_category}} </a> <i class="fa-solid fa-chevron-right"></i>
-                    <a  href="/viewItem/{{$product->prod_category}}/{{$product->prod_name}}"> {{$product->prod_name}} </a> <i class="fa-solid fa-chevron-right"></i>
-                    <a class="" href="/viewItem/{{$product->prod_category}}/{{$product->prod_name}}/{{$product->prod_code}}"> {{$product->prod_code}} </a>
+                    <a  href="{{route('viewItem',['prod_category' => Str::slug($product->prod_category)])}}"> {{$product->prod_category}} </a> <i class="fa-solid fa-chevron-right"></i>
+                    <a  href="{{route('viewItem',['prod_category' => Str::slug($product->prod_category),'prod_name' => Str::slug($product->prod_name)])}}"> {{$product->prod_name}} </a> <i class="fa-solid fa-chevron-right"></i>
+                    <a class="" href="{{route('viewItem',['prod_category' => Str::slug($product->prod_category),'prod_name' => Str::slug($product->prod_name),'prod_code' => Str::slug($product->prod_code)])}}"> {{$product->prod_code}} </a>
                 </div>
             </div>
         </div>
