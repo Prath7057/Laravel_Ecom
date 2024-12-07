@@ -2,9 +2,9 @@
     <div class="card" style="width: 100%;">
         <form method="POST" style="cursor: pointer;"
             action="{{ route('viewItem', [
-                'prod_category_slg' => Str::slug($product->prod_category),                
+                'prod_category_slg' => Str::slug($product->prod_category),     
+                'prod_name_slg' => Str::slug($product->prod_name),             
                 'prod_code_slg' => Str::slug($product->prod_code),
-                'prod_name_slg' => Str::slug($product->prod_name),
             ]) }}"
             onclick="submit(this);">
             @csrf
