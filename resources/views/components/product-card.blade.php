@@ -4,7 +4,7 @@
             action="{{ route('viewItem', [
                 'prod_category_slg' => Str::slug($product->prod_category),     
                 'prod_name_slg' => Str::slug($product->prod_name),             
-                'prod_code_slg' => Str::slug($product->prod_code),
+                'prod_code_slg' => Str::slug($product->prod_code)
             ]) }}"
             onclick="submit(this);">
             @csrf

@@ -196,14 +196,52 @@ class ProductController extends Controller
         $decryptedProdId = Crypt::decrypt($secureProdId);
         //
         $product = Product::where('prod_id', $decryptedProdId)
-        ->select('prod_id', 'prod_code', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
-        ->with([
-            'AllImages:image_prod_id,image_name,image_id',
-        ])
-        ->first();
+            ->select('prod_id', 'prod_code', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
+            ->with([
+                'AllImages:image_prod_id,image_name,image_id',
+            ])
+            ->first();
+        //
+        // dd($product);
         //
         return view('components.viewItem', [
             'product' => $product,
         ]);
     }
+    //
+    public function viewItems($prod_collection_slg = null, $prod_category_slg = null, $prod_name_slg = null, $prod_code_slg = null)
+    {
+        $query = Product::with(['firstImage:image_prod_id,image_name'])
+            ->select('prod_id', 'prod_code', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection');
+
+        $filterData = [];
+
+        if ($prod_collection_slg) {
+            $query->where('prod_collection', 'like', '%' . $prod_collection_slg . '%');
+            $filterData[] = ucfirst($prod_collection_slg);
+        }
+
+        if ($prod_category_slg) {
+            $query->where('prod_category', 'like', '%' . $prod_category_slg . '%');
+            $filterData[] = ucfirst($prod_category_slg);
+        }
+
+        if ($prod_name_slg) {
+            $query->where('prod_name', 'like', '%' . $prod_name_slg . '%');
+            $filterData[] = ucfirst($prod_name_slg);
+        }
+
+        if ($prod_code_slg) {
+            $query->where('prod_code', 'like', '%' . $prod_code_slg . '%');
+            $filterData[] = strtoupper($prod_code_slg);
+        }
+
+        $product = $query->get();
+
+        return view('components.viewItems', [
+            'product' => $product,
+            'fiterData' => $filterData,
+        ]);
+    }
+
 }
