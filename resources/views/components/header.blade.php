@@ -1,6 +1,11 @@
 @php
     $panelName = $panelName ?? '';
 @endphp
+<style>
+    .nav-link{
+        font-size: 1.1rem;
+    }
+</style>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
