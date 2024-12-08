@@ -30,4 +30,4 @@ Route::prefix('admin')->group(function () {
 Route::post("/addInputTypeFile", [AjaxController::class, 'addInputTypeFile'])->name('addInputTypeFile');
 Route::post("/admin/addInputTypeFile", [AjaxController::class, 'addInputTypeFile'])->name('addInputTypeFile');
 Route::post("/viewItem/{prod_category_slg}/{prod_name_slg}/{prod_code_slg}", [ProductController::class, 'viewItem'])->name('viewItem');
-Route::get('/viewItems/{prod_collection_slg}/{prod_category_slg?}/{prod_name_slg?}/{prod_code_slg?}', [ProductController::class, 'viewItems'])->name('viewItems');
+Route::get('/viewItems/{prod_collection_slg?}/{prod_category_slg?}/{prod_name_slg?}/{prod_code_slg?}', [ProductController::class, 'viewItems'])->name('viewItems');

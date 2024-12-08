@@ -237,7 +237,11 @@ class ProductController extends Controller
         }
 
         $product = $query->get();
-
+        //
+        foreach ($product as $item) {
+            $item->secure_prod_id = Crypt::encrypt($item->prod_id);
+        }
+        //
         return view('components.viewItems', [
             'product' => $product,
             'fiterData' => $filterData,
