@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class product extends Model
 {
@@ -14,11 +15,14 @@ class product extends Model
     protected $primaryKey = 'prod_id';
     protected $fillable = [
         'prod_name',
+        'prod_name_slug',
         'prod_code',
         'prod_category',
+        'prod_category_slug',
         'prod_desc',
         'prod_amount',
         'prod_collection',
+        'prod_collection_slug',
     ];
     //
     public function firstImage()
@@ -48,4 +52,19 @@ class product extends Model
         });
         //
     }
+    //
+    // public function setProdCategorySlugAttribute($value)
+    // {
+    //     $this->attributes['prod_category_slug'] = Str::slug($value);
+    // }
+
+    // public function setProdNameSlugAttribute($value)
+    // {
+    //     $this->attributes['prod_name_slug'] = Str::slug($value);
+    // }
+
+    // public function setProdCollectionSlugAttribute($value)
+    // {
+    //     $this->attributes['prod_collection_slug'] = Str::slug($value);
+    // }
 }

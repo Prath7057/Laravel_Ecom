@@ -7,6 +7,7 @@ use App\Models\product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -64,6 +65,10 @@ class ProductController extends Controller
             'prod_collection' => 'required',
             'prod_amount' => 'required|numeric',
         ]);
+        //
+        $validated['prod_category_slug'] = Str::slug($validated['prod_category']);
+        $validated['prod_name_slug'] = Str::slug($validated['prod_name']);
+        $validated['prod_collection_slug'] = Str::slug($validated['prod_collection']);
         //
         $product = product::create($validated);
         $prod_id = $product->prod_id;
@@ -135,7 +140,11 @@ class ProductController extends Controller
         if (!$product) {
             return redirect()->back()->withErrors(['error' => 'Invalid Product ID.']);
         }
-
+        //
+        $validated['prod_category_slug'] = Str::slug($validated['prod_category']);
+        $validated['prod_name_slug'] = Str::slug($validated['prod_name']);
+        $validated['prod_collection_slug'] = Str::slug($validated['prod_collection']);
+        //
         $product->update($validated);
 
         for ($i = 1; $i <= 5; $i++) {
