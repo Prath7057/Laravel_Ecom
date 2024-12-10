@@ -220,24 +220,24 @@ class ProductController extends Controller
     //
     public function viewItems($prod_collection_slg = null, $prod_category_slg = null, $prod_name_slg = null, $prod_code_slg = null)
     {
+        //
         $query = Product::with(['firstImage:image_prod_id,image_name'])
             ->select('prod_id', 'prod_code', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection');
 
-        $filterData = [];
-
-        if ($prod_collection_slg) {
+        $categories = $names = $collections = '';
+        if ($prod_collection_slg && $prod_collection_slg != 'all-collections') {
             $query->where('prod_collection_slug', $prod_collection_slg);
-            $filterData[] = ucfirst($prod_collection_slg);
+            $collections = ucfirst($prod_collection_slg);
         }
 
-        if ($prod_category_slg) {
+        if ($prod_category_slg && $prod_category_slg != 'all-categories') {
             $query->where('prod_category_slug', $prod_category_slg);
-            $filterData[] = ucfirst($prod_category_slg);
+            $categories = ucfirst($prod_category_slg);
         }
 
-        if ($prod_name_slg) {
+        if ($prod_name_slg && $prod_name_slg != 'all-names') {
             $query->where('prod_name_slug', $prod_name_slg);
-            $filterData[] = ucfirst($prod_name_slg);
+            $names = ucfirst($prod_name_slg);
         }
         //
         $product = $query->get();
@@ -252,7 +252,9 @@ class ProductController extends Controller
         //
         return view('components.viewItems', [
             'product' => $product,
-            'fiterData' => $filterData,
+            'collections' => $collections,
+            'categories' => $categories,
+            'names' => $names,
         ]);
     }
 

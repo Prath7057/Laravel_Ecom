@@ -1,7 +1,15 @@
 @extends('masterLayout')
 
 @section('title')
-    {{ implode(' > ', $fiterData) }} - Product Details
+    @if (!empty($collections))
+        {{ $collections }} |
+    @endif
+    @if (!empty($categories))
+        {{ $categories }} |
+    @endif
+    @if (!empty($name))
+        {{ $name }}
+    @endif
 @endsection
 
 @push('styles')
@@ -121,14 +129,36 @@
         <div class="row">
             <div class="col-12">
                 <nav class="navigation mb-3">
-                    @foreach ($fiterData as $index => $filter)
-                        <a href="/" class="mr-2">Home</a>
+                    <a href="/" class="mr-2">Home</a>
+                    @if (!empty($collections))
                         <i class="fa-solid fa-chevron-right"></i>
                         <a
                             href="{{ route('viewItems', [
                                 'prod_collection_slg' => Str::slug(Str::title($product[0]->prod_collection)),
-                            ]) }}">{{ $filter }}</a>
-                    @endforeach
+                                'prod_category_slg' => 'all-categories',
+                                'prod_name_slg' => 'all-names',
+                            ]) }}">{{ $collections }}</a>
+                    @endif
+                    @if (!empty($categories))
+                        <i class="fa-solid fa-chevron-right"></i>
+                        <a
+                            href="{{ route('viewItems', [
+                                'prod_category_slg' => Str::slug(Str::title($categories)),
+                                'prod_collection_slg' => 'all-collections',
+                                // 'prod_name_slg' => 'all-names',
+                            ]) }}">
+                            {{ Str::title($categories) }}
+                        </a>
+                    @endif
+                    @if (!empty($names))
+                        <i class="fa-solid fa-chevron-right"></i>
+                        <a
+                            href="{{ route('viewItems', [
+                                'prod_name_slg' => Str::slug(Str::title($names)),
+                                'prod_category_slg' => 'all-categories',
+                                'prod_collection_slg' => 'all-collections',
+                            ]) }}">{{ Str::title($names) }}</a>
+                    @endif
                 </nav>
             </div>
             <div class="col-12 product-list">
@@ -154,8 +184,7 @@
                                         value="{{ $item->secure_prod_id }}" />
                                     <input type="hidden" id="prod_category" name="prod_category"
                                         value="{{ $item->prod_category }}" />
-                                    <input type="hidden" id="prod_name" name="prod_name"
-                                        value="{{ $item->prod_name }}" />
+                                    <input type="hidden" id="prod_name" name="prod_name" value="{{ $item->prod_name }}" />
                                     <h4 class="product-name">{{ $item->prod_name }}</h4>
                                     <h5 class="product-category">Category: {{ $item->prod_category }}</h5>
                                     <p class="product-description">{{ $item->prod_desc }}</p>
