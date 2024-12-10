@@ -6,7 +6,7 @@
                 'prod_name_slg' => Str::slug($product->prod_name),             
                 'prod_code_slg' => Str::slug($product->prod_code)
             ]) }}"
-            onclick="submit(this);">
+            onclick="document.getElementById('main_ajax_loading_div').style.visibility='visible';submit(this);">
             @csrf
             <input type="hidden" id="secure_prod_id" name="secure_prod_id" value="{{ $product->secure_prod_id }}" />
             <input type="hidden" id="prod_category" name="prod_category" value="{{ $product->prod_category }}" />
