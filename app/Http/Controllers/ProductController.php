@@ -226,26 +226,25 @@ class ProductController extends Controller
         $filterData = [];
 
         if ($prod_collection_slg) {
-            $query->where('prod_collection', 'like', '%' . $prod_collection_slg . '%');
+            $query->where('prod_collection_slug', $prod_collection_slg);
             $filterData[] = ucfirst($prod_collection_slg);
         }
 
         if ($prod_category_slg) {
-            $query->where('prod_category', 'like', '%' . $prod_category_slg . '%');
+            $query->where('prod_category_slug', $prod_category_slg);
             $filterData[] = ucfirst($prod_category_slg);
         }
 
         if ($prod_name_slg) {
-            $query->where('prod_name', 'like', '%' . $prod_name_slg . '%');
+            $query->where('prod_name_slug', $prod_name_slg);
             $filterData[] = ucfirst($prod_name_slg);
         }
-
-        if ($prod_code_slg) {
-            $query->where('prod_code', 'like', '%' . $prod_code_slg . '%');
-            $filterData[] = strtoupper($prod_code_slg);
-        }
-
+        //
         $product = $query->get();
+        //
+        // $sql = $query->toSql();
+        // $bindings = $query->getBindings();
+        // $fullSql = Str::replaceArray('?', array_map(fn($value) => "'$value'", $bindings), $sql);
         //
         foreach ($product as $item) {
             $item->secure_prod_id = Crypt::encrypt($item->prod_id);
