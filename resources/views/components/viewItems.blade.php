@@ -124,7 +124,6 @@
 
 @section('contents')
     @include('components.header')
-
     <div class="container pt-3">
         <div class="row">
             <div class="col-12">
