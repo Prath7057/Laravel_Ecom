@@ -85,21 +85,21 @@
         }
 
         .img-zoom-lens {
-    position: absolute;
-    border: 2px solid rgba(40, 116, 240, 0.8);
-    width: 100px; /* Adjust for desired lens size */
-    height: 100px; /* Adjust for desired lens size */
-    background: rgba(255, 255, 255, 0.4);
-    cursor: none; /* Hide the default cursor when hovering */
-}
+            position: absolute;
+            border: 2px solid rgba(40, 116, 240, 0.8);
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: none;
+        }
 
-.img-zoom-result {
-    border: 1px solid #d4d4d4;
-    width: 100%; /* Adjust to make the zoom result larger */
-    height: 300px; /* Adjust for desired zoom size */
-    background-color: white;
-    overflow: hidden;
-}
+        .img-zoom-result {
+            border: 1px solid #d4d4d4;
+            width: 100%;
+            height: 300px;
+            background-color: white;
+            overflow: hidden;
+        }
 
     </style>
 @endpush
@@ -117,7 +117,7 @@
                                 src="{{ asset('images/prod_image/' . $product->AllImages[0]->image_name) }}"
                                 class="img-fluid" style="height:350px; width:100%;"
                                 onmouseover="imageZoom('mainImageDiv','imageZoomResultDiv');document.getElementById('img-zoom-lens').style.display='block';" 
-                                onmouseout = "document.getElementById('img-zoom-lens').style.display='none';"
+                                
                                 />
                             <img id="orgImageDiv"
                                 src="{{ asset('images/prod_image/' . $product->AllImages[0]->image_name) }}"
