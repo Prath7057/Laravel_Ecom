@@ -99,7 +99,6 @@ function imageZoom(imgID, resultID) {
     result = document.getElementById(resultID);
     lens = document.createElement("DIV");
     lens.setAttribute("class", "img-zoom-lens");
-    lens.setAttribute("id", "img-zoom-lens");
     img.parentElement.insertBefore(lens, img);
     cx = result.offsetWidth / lens.offsetWidth;
     cy = result.offsetHeight / lens.offsetHeight;

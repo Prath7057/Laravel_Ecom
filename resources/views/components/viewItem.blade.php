@@ -117,7 +117,7 @@
                             <img id="mainImageDiv"
                                 src="{{ asset('images/prod_image/' . $product->AllImages[0]->image_name) }}"
                                 class="img-fluid" style="height:350px; width:100%;"
-                                onmouseover="imageZoom('mainImageDiv','imageZoomResultDiv');document.getElementById('img-zoom-lens').style.display='block';" 
+                                onmouseover="imageZoom('mainImageDiv','imageZoomResultDiv');" 
                                 
                                 />
                             <img id="orgImageDiv"
