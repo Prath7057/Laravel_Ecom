@@ -95,10 +95,6 @@
 
         .img-zoom-result {
             border: 1px solid #d4d4d4;
-            width: 100%;
-            height: 300px;
-            background-color: white;
-            overflow: hidden;
         }
 
     </style>
@@ -142,8 +138,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-7 col-12" style="background-color: rgb(228, 228, 228);height:100%;">
-                <div class="mt-1 navigation" style="color: gray;font-size:1.1rem">
+            <div id="imageZoomResultDiv" class="col-lg-7 col-12 img-zoom-result" style="">
+                <div class="mt-1 navigation" style="color: gray;font-size:1.1rem;z-index: -1;">
                     <a href="/">Home</a> <i class="fa-solid fa-chevron-right"></i>
                     <a
                         href="{{ route('viewItems', [
@@ -178,7 +174,7 @@
                         {{ Str::title($product->prod_code) }} </a>
 
                 </div>
-                <div class="container product-details mt-3" >
+                <div class="container product-details mt-3" style="z-index: -1;">
                     <div class="row">
                         <div class="col-12">
                             <h2 class="product-name mb-3">{{ $product->prod_name }}</h2>
@@ -195,8 +191,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="imageZoomResultDiv" class="container mt-3 img-zoom-result" style="">
                 </div>
             </div>
         </div>

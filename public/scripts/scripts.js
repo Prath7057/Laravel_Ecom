@@ -97,14 +97,17 @@ function imageZoom(imgID, resultID) {
     var img, lens, result, cx, cy;
     img = document.getElementById(imgID);
     result = document.getElementById(resultID);
-    lens = document.createElement("DIV");
-    lens.setAttribute("class", "img-zoom-lens");
-    img.parentElement.insertBefore(lens, img);
+    var lens = img.parentElement.querySelector(".img-zoom-lens");
+    if (!lens) {
+        lens = document.createElement("DIV");
+        lens.setAttribute("class", "img-zoom-lens");
+        img.parentElement.insertBefore(lens, img);
+    }
     cx = result.offsetWidth / lens.offsetWidth;
     cy = result.offsetHeight / lens.offsetHeight;
-    // result.style.backgroundColor = "white";
     result.style.backgroundImage = "url('" + img.src + "')";
     result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+    result.style.zIndex = "2";
     lens.addEventListener("mousemove", moveLens);
     img.addEventListener("mousemove", moveLens);
     lens.addEventListener("touchmove", moveLens);
