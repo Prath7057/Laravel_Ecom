@@ -112,7 +112,8 @@
             <div class="col-lg-5 col-12" style="background-color: #f0f0f0;">
                 <div class="container-fluid boxSizing" style="">
                     <div class="row ">
-                        <div class="mt-5 col-lg-12 col-12 p-2 img-zoom-container" style="height:auto; border:6px solid #ffffff;">
+                        <div class="mt-5 col-lg-12 col-12 p-2 img-zoom-container" style="height:auto; border:6px solid #ffffff;"
+                        >
                             <img id="mainImageDiv"
                                 src="{{ asset('images/prod_image/' . $product->AllImages[0]->image_name) }}"
                                 class="img-fluid" style="height:350px; width:100%;"

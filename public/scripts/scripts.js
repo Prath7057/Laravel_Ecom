@@ -110,6 +110,7 @@ function imageZoom(imgID, resultID) {
     img.addEventListener("mousemove", moveLens);
     lens.addEventListener("touchmove", moveLens);
     img.addEventListener("touchmove", moveLens);
+    
     function moveLens(e) {
       var pos, x, y;
       e.preventDefault();
