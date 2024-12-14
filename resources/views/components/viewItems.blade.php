@@ -167,7 +167,7 @@
                             <div class="col-12 col-md-3">
                                 <a href="#" class="d-block">
                                     <img src="{{ asset('images/prod_image/' . $item->firstImage->image_name) }}"
-                                        alt="Product Image" class="product-image">
+                                        alt="Product Image" class="product-image" style="outline:1px dotted #2874f0;">
                                 </a>
                             </div>
                             <div class="col-12 col-md-6 ">

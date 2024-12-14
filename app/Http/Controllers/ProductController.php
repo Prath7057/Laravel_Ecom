@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::whereIn('prod_collection', ['trending', 'top_selling', 'recommended'])
+        $products = Product::whereIn('prod_collection', ['trending', 'top_selling', 'recommended', 'new_arrivals'])
             ->select('prod_id', 'prod_code', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
             ->with([
                 'firstImage:image_prod_id,image_name',
@@ -32,6 +32,7 @@ class ProductController extends Controller
             'trendingProducts' => $products->get('trending', collect()),
             'topSellingProducts' => $products->get('top_selling', collect()),
             'recommendedProducts' => $products->get('recommended', collect()),
+            'newArrivalsProducts' => $products->get('new_arrivals', collect()),
         ]);
     }
     //

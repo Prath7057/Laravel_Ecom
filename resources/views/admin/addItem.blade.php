@@ -115,6 +115,14 @@
                 <div class="d-flex align-items-center">
                     <div class="form-check me-3">
                         <input class="form-check-input" style="border: 1.5px solid rgb(26, 26, 26)" type="radio"
+                            name="prod_collection" id="prod_collection4" value="new_arrivals"
+                            {{ $product->prod_collection ? ($product->prod_collection == 'new_arrivals' ? 'checked' : '') : '' }}>
+                        <label class="form-check-label" for="prod_collection4">
+                            New Arrivals
+                        </label>
+                    </div>
+                    <div class="form-check me-3">
+                        <input class="form-check-input" style="border: 1.5px solid rgb(26, 26, 26)" type="radio"
                             name="prod_collection" id="prod_collection1" value="trending"
                             {{ $product->prod_collection ? ($product->prod_collection == 'trending' ? 'checked' : '') : '' }}>
                         <label class="form-check-label" for="prod_collection1">
@@ -140,6 +148,13 @@
                 </div>
             @else
                 <div class="d-flex align-items-center">
+                    <div class="form-check me-3">
+                        <input class="form-check-input" style="{{ $errors->has('prod_collection') ? 'border: 1.5px solid red' : 'border: 1.5px solid rgb(26, 26, 26)' }}" type="radio"
+                            name="prod_collection" id="prod_collection4" value="new_arrivals">
+                        <label class="form-check-label" for="prod_collection4">
+                            New Arrivals
+                        </label>
+                    </div>                    
                     <div class="form-check me-3">
                         <input class="form-check-input" style="{{ $errors->has('prod_collection') ? 'border: 1.5px solid red' : 'border: 1.5px solid rgb(26, 26, 26)' }}" type="radio"
                             name="prod_collection" id="prod_collection1" value="trending">

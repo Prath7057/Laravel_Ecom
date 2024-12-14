@@ -67,3 +67,7 @@ body {
     color: var(--color-teal-800);
     text-transform: uppercase;
   }
+  .zoomImage:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s ease-in-out; 
+}

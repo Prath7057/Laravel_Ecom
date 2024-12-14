@@ -13,7 +13,7 @@
             <input type="hidden" id="prod_name" name="prod_name" value="{{ $product->prod_name }}" />
             <div style="height: 200px; overflow: hidden;">
                 <img src="{{ $product->firstImage->image_name ? asset('images/prod_image/' . $product->firstImage->image_name) : asset('images/site_images/prod_image.webp') }}"
-                    alt="{{ $product->prod_name }}" class="card-img-top w-100 h-100" style="object-fit: contain;">
+                    alt="{{ $product->prod_name }}" class="card-img-top w-100 h-100 zoomImage" style="object-fit: contain;border-bottom:1px dotted #2874f0;">
             </div>
         </form>
         <div class="card-body" style="background-color: {{ $backgroundColor }}">

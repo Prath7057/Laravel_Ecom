@@ -22,8 +22,7 @@
               text-align: center;
               border-radius: 5px;
           }
-      }
-      
+      }      
   </style>
 @endpush
 
@@ -56,7 +55,7 @@
         $headingBackgroundColors = ['#e8fae1', '#faeed2', '#f9fadc'];
         $addToCartBackgroundColors = ['#d4f7b1', '#f9e7d0', '#f1f9d9'];
     @endphp
-    @foreach (['Trending Items' => $trendingProducts, 'Highest Selling Items' => $topSellingProducts, 'Recommended Items' => $recommendedProducts] as $title => $products)
+    @foreach (['New Arrivals' => $newArrivalsProducts, 'Trending Items' => $trendingProducts, 'Highest Selling Items' => $topSellingProducts, 'Recommended Items' => $recommendedProducts] as $title => $products)
         @if ($products->isNotEmpty())
             <div class="container-fluid" style="background-color: {{ $divBackgroundColors[$loop->index]  }}">
                 <div class="d-flex justify-content-between align-items-center" style="background-color: {{ $headingBackgroundColors[$loop->index] }}">
