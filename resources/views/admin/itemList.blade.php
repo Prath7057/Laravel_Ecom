@@ -148,8 +148,8 @@
                             <th style="width: 10%;">Item Code</th>
                             <th style="width: 15%;">Item Name</th>
                             <th style="width: 15%;">Item Category</th>
-                            <th style="width: 10%;">Item Amount</th>
-                            <th style="width: 25%;">Item Desc</th>
+                            <th style="width: 10%;text-align:right;">Item Amount</th>
+                            {{-- <th style="width: 25%;">Item Desc</th> --}}
                             <th style="width: 15%;">Item Collection</th>
                             <th style="width: 5%;">Actions</th>
                         </tr>
@@ -163,8 +163,8 @@
                                 </td>
                                 <td>{{ $item->prod_name }}</td>
                                 <td>{{ $item->prod_category }}</td>
-                                <td>{{ $item->prod_amount }}</td>
-                                <td>{{ $item->prod_desc }}</td>
+                                <td style="text-align:right;">{{ $item->prod_amount }}</td>
+                                {{-- <td>{{ $item->prod_desc }}</td> --}}
                                 <td>{{ $item->prod_collection }}</td>
                                 <td style="text-align:center!important;">
                                     <form action="{{ route('deleteItem') }}" method="POST" style="display:inline;">

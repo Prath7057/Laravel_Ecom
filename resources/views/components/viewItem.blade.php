@@ -108,7 +108,6 @@
         }
 
         .img-zoom-result {
-            /* background-color: #f9f9f9; */
             border: 1px solid #d4d4d4;
         }
     </style>
