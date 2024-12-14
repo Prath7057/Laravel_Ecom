@@ -108,19 +108,17 @@
             <div class="col-lg-5 col-12" style="background-color: #f0f0f0;">
                 <div class="container-fluid boxSizing" style="">
                     <div class="row ">
-                        <div class="mt-5 col-lg-12 col-12 p-2 img-zoom-container" style="height:auto; border:6px solid #ffffff;"
-                        >
+                        <div class="mt-5 col-lg-12 col-12 p-2 img-zoom-container" style="height:auto; border:6px solid #ffffff;">
                             <img id="mainImageDiv"
                                 src="{{ asset('images/prod_image/' . $product->AllImages[0]->image_name) }}"
                                 class="img-fluid" style="height:350px; width:100%;"
-                                onmouseover="imageZoom('mainImageDiv','imageZoomResultDiv');" 
-                                
-                                />
+                                onmouseover="imageZoom('mainImageDiv','imageZoomResultDiv');"/>
                             <img id="orgImageDiv"
                                 src="{{ asset('images/prod_image/' . $product->AllImages[0]->image_name) }}"
                                 style="display:none;" />
                         </div>
-                        <div class="col-lg-12 col-12 mt-3">
+                        <div class="col-lg-12 col-12 mt-3"
+                         onmouseover="removeImageZoom();">
                             <div class="d-flex justify-content-center">
                                 @for ($i = 1; $i < 4; $i++)
                                     @if (isset($product->AllImages[$i]))
@@ -138,8 +136,10 @@
                     </div>
                 </div>
             </div>
-            <div id="imageZoomResultDiv" class="col-lg-7 col-12 img-zoom-result" style="">
-                <div class="mt-1 navigation" style="color: gray;font-size:1.1rem;z-index: -1;">
+            <div id="imageZoomResultDiv" class="col-lg-7 col-12 img-zoom-result" style=""
+            onmouseover="removeImageZoom();"
+            >
+                <div class="mt-1 navigation mainResponce" style="color: gray;font-size:1.1rem;z-index: -1;">
                     <a href="/">Home</a> <i class="fa-solid fa-chevron-right"></i>
                     <a
                         href="{{ route('viewItems', [
@@ -174,7 +174,7 @@
                         {{ Str::title($product->prod_code) }} </a>
 
                 </div>
-                <div class="container product-details mt-3" style="z-index: -1;">
+                <div class="container product-details mt-3 mainResponce" style="z-index: -1;">
                     <div class="row">
                         <div class="col-12">
                             <h2 class="product-name mb-3">{{ $product->prod_name }}</h2>

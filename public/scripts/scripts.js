@@ -94,6 +94,10 @@ function previewImage(imageSrc) {
 }
 //start code for image zoom code
 function imageZoom(imgID, resultID) {
+    let mainResponce = document.querySelectorAll('.mainResponce');
+    mainResponce.forEach(ee => {
+        ee.style.display = 'none';
+    });
     var img, lens, result, cx, cy;
     img = document.getElementById(imgID);
     result = document.getElementById(resultID);
@@ -107,7 +111,6 @@ function imageZoom(imgID, resultID) {
     cy = result.offsetHeight / lens.offsetHeight;
     result.style.backgroundImage = "url('" + img.src + "')";
     result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
-    result.style.zIndex = "2";
     lens.addEventListener("mousemove", moveLens);
     img.addEventListener("mousemove", moveLens);
     lens.addEventListener("touchmove", moveLens);
@@ -139,3 +142,19 @@ function imageZoom(imgID, resultID) {
     }
   }
 //end code for image zoom code
+function removeImageZoom() {
+    const lensElement = document.querySelector('.img-zoom-lens');
+    if (lensElement) {
+        lensElement.remove();
+        let mainResponce = document.querySelectorAll('.mainResponce');
+        mainResponce.forEach(ee => {
+            ee.style.display = 'block';
+        });
+        const resultElement = document.getElementById('imageZoomResultDiv');
+        if (resultElement) {
+            resultElement.style.backgroundImage = '';
+            resultElement.style.backgroundSize = ''; 
+        }
+    }
+    
+}
