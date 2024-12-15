@@ -51,7 +51,7 @@
                             <a class="nav-link" href="">Contact</a>
                         </li>
                         <li class="nav-item me-3">
-                            <a class="nav-link" href="{{route('login')}}" title="click here to login">
+                            <a class="nav-link" href="{{route('signin')}}" title="click here to login">
                                 <i class="fa fa-user-circle" style="color:green" aria-hidden="true"></i> Login
                             </a>
                         </li>                      
