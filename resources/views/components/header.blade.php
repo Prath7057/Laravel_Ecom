@@ -5,6 +5,24 @@
     .nav-link {
         font-size: 1.1rem;
     }
+
+    @media (max-width: 768px) {
+        .fa-user-circle{
+            display: none;
+        }
+        .nav-link{
+            text-align: center;
+        }
+        .collapse {
+            position: absolute;
+            top: 100%; 
+            left: 0;
+            right: 0;
+            z-index: 1050;
+            background-color: white;
+            padding-bottom: 5%;
+        }
+    }
 </style>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -39,7 +57,8 @@
                             <img src="{{ asset('images/ajaxMainLoading.gif') }}" />
                         </li>
                         <li class="nav-item me-3">
-                            <a class="nav-link is-active" href="">Home</a>
+                            <a class="nav-link {{ request()->routeIs('home') ? 'is-active' : '' }}"
+                                href="/">Home</a>
                         </li>
                         <li class="nav-item me-3">
                             <a class="nav-link" href="">About</a>
@@ -51,10 +70,11 @@
                             <a class="nav-link" href="">Contact</a>
                         </li>
                         <li class="nav-item me-3">
-                            <a class="nav-link" href="{{route('signin')}}" title="click here to login">
-                                <i class="fa fa-user-circle" style="color:green" aria-hidden="true"></i> Login
+                            <a class="nav-link {{ request()->routeIs('signin') || request()->routeIs('signup') ? 'is-active' : '' }}"
+                                href="{{ route('signin') }}" title="click here to login">
+                                <i class="fa fa-user-circle" style="color:green" aria-hidden="true"></i> {{ request()->routeIs('signup') ? 'Sign Up' : 'Sign In' }}
                             </a>
-                        </li>                      
+                        </li>
                     </ul>
                 </div>
             @endif
