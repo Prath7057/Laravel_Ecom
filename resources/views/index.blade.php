@@ -51,9 +51,9 @@
         </button>
     </div>
     @php
-        $divBackgroundColors = ['#f4fff0', '#faf3e3', '#f9fae6'];
-        $headingBackgroundColors = ['#e8fae1', '#faeed2', '#f9fadc'];
-        $addToCartBackgroundColors = ['#d4f7b1', '#f9e7d0', '#f1f9d9'];
+        $divBackgroundColors = ['#f4fff0', '#f9fae6', '#faf3e3'];
+        $headingBackgroundColors = ['#e8fae1', '#f9fadc', '#faeed2'];
+        $addToCartBackgroundColors = ['#d4f7b1', '#f1f9d9', '#f9e7d0'];
     @endphp
     @foreach (['New Arrivals' => $newArrivalsProducts, 'Trending Items' => $trendingProducts, 'Highest Selling Items' => $topSellingProducts, 'Recommended Items' => $recommendedProducts] as $title => $products)
         @if ($products->isNotEmpty())
@@ -64,7 +64,7 @@
                         'prod_collection_slg' => Str::slug(Str::title($products[0]->prod_collection))
                     ]) }}" class="btn btn-link text-decoration-underline me-2" style="font-size: 1.2rem;">View All</a>
                 </div>
-                <div class="row">
+                <div class="row" style="border-bottom: 1px dotted gray;">
                   @php 
                   $backgroundColor = $headingBackgroundColors[$loop->index];
                   $addTocartBackground = $addToCartBackgroundColors[$loop->index];

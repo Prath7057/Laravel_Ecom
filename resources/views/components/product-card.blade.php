@@ -6,7 +6,7 @@
                 'prod_name_slg' => Str::slug($product->prod_name),             
                 'prod_code_slg' => Str::slug($product->prod_code)
             ]) }}"
-            onclick="document.getElementById('main_ajax_loading_div').style.visibility='visible';submit(this);">
+            onclick="submit(this);">
             @csrf
             <input type="hidden" id="secure_prod_id" name="secure_prod_id" value="{{ $product->secure_prod_id }}" />
             <input type="hidden" id="prod_category" name="prod_category" value="{{ $product->prod_category }}" />
@@ -18,7 +18,7 @@
         </form>
         <div class="card-body" style="background-color: {{ $backgroundColor }}">
             <h5 class="card-title">{{ $product->prod_name }}</h5>
-            <p class="card-text">{{ $product->prod_desc }}</p>
+            <p class="card-text" style="height:3.3rem;overflow:hidden">{{ $product->prod_desc }}</p>
             <div class="d-flex justify-content-between align-items-center">
                 <a href="#" class="btn btn-warning" style="background: {{ $addTocartBackground }}">
                     <i class="fa fa-shopping-cart"></i> Add To cart

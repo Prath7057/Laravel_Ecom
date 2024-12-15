@@ -196,7 +196,7 @@
                         <div class="col-12">
                             <h2 class="product-name mb-3">{{ $product->prod_name }}</h2>
                             <h4 class="product-category text-muted mb-3">{{ $product->prod_category }}</h4>
-                            <p class="product-description text-secondary mb-4">{{ $product->prod_desc }}</p>
+                            <p class="product-description text-secondary mb-4" style="text-align: justify;">{{ $product->prod_desc }}</p>
                             <h4 class="product-price text-success mb-4">Price: {{ $product->prod_amount }}</h4>
                             <div class="d-flex justify-content-between flex-wrap">
                                 <a href="#" class="btn btn-primary btn-lg px-4">

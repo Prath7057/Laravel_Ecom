@@ -25,8 +25,8 @@
     }
 </style>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container" onmouseover="removeImageZoom();">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"  onmouseover="removeImageZoom();">
+        <div class="container">
             <a class="brand" href="@if ($panelName == 'admin') /admin @else / @endif">LOGO</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

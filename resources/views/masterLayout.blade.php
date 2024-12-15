@@ -14,7 +14,7 @@
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
     @stack('styles')
 </head>
-<body style="">    
+<body>    
     @yield('header')
     @yield('contents')
     @stack('scripts')

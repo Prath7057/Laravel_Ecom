@@ -45,7 +45,7 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: start;
             padding: 0 10px;
         }
 
@@ -61,6 +61,8 @@
 
         .product-description {
             font-size: 0.9rem;
+            height: 5.1rem;
+            overflow: hidden;
             color: #555;
         }
 
@@ -93,6 +95,7 @@
             overflow-y: scroll;
             padding-right: 15px;
             scrollbar-width: thin;
+            background-color: #f0f0f0;
             scrollbar-color: transparent transparent;
         }
 
@@ -117,6 +120,9 @@
 
             .product-image {
                 height: auto;
+            }
+            .product-description {
+                height: 2.5rem;
             }
         }
     </style>
@@ -195,7 +201,7 @@
                                     <i class="fa fa-credit-card"></i> Buy Now
                                 </a>
                                 <a href="#" class="btn btn-warning">
-                                    <i class="fa fa-shopping-cart"></i> Add To Cart
+                                    <i class="fa fa-shopping-cart" ></i> Add To Cart
                                 </a>
                             </div>
                         </div>
