@@ -11,9 +11,9 @@ Route::get('/admin', function () {
     return view('admin.addItem',['panelName' => 'admin']);
 });
 //
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+Route::get('/signin', function () {
+    return view('signin');
+})->name('signin');
 //
 Route::get('/signup', function () {
     return view('signup');
