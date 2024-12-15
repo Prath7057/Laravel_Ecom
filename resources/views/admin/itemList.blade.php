@@ -153,7 +153,7 @@
                             <th style="width: 15%;">Item Collection</th>
                             <th style="width: 5%;">Actions</th>
                         </tr>
-                    </thead>
+                    </thead>    
                     <tbody>
                         @foreach ($items as $item)
                             <tr>
