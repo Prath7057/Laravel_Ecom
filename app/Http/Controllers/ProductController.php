@@ -16,7 +16,7 @@ class ProductController extends Controller
         $products = Product::whereIn('prod_collection', ['trending', 'top_selling', 'recommended', 'new_arrivals'])
             ->select('prod_id', 'prod_code', 'prod_name', 'prod_category', 'prod_desc', 'prod_amount', 'prod_collection')
             ->with([
-                'firstImage:image_prod_id,image_name',
+                'AllImages:image_prod_id,image_name',
             ])
             ->get()
             ->groupBy('prod_collection')
