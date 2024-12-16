@@ -133,6 +133,7 @@
     <div class="container pt-3">
         <div class="row">
             <div class="col-12">
+                
                 <nav class="navigation mb-3">
                     <a href="/" class="mr-2">Home</a>
                     @if (!empty($collections))
