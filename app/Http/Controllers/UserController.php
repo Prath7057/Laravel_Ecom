@@ -35,8 +35,7 @@ class UserController extends Controller
         return redirect()->route('signin')
         ->with([
             'success' => 'Registration Successfull!',
-            'user_username' => $validated['user_username'],
-            'user_password' => $validated['user_ipassword'],
+            'user_username' => $validated['user_username']
         ]);
    }
 }
