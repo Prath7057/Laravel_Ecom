@@ -19,4 +19,8 @@ class User extends Authenticatable
         'user_ipassword',
         'user_email',
     ];
+    public function getAuthPassword()
+    {
+        return $this->user_password; // Specify your custom password column
+    }
 }
