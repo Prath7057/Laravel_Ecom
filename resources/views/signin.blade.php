@@ -58,7 +58,9 @@
 <div class="container mt-5" style="width: 100%;max-width: 400px;">   
     <div class="card">
         <h2>Sign In</h2>
-        <form action="" method="POST">
+        <form action="" method="POST"
+        onsubmit="validateSignIn();"
+        >
             @csrf
             <div class="form-group">
                 <input type="text" id="user_username" name="user_username" value="{{ old('user_username', session('user_username'), $user->user_username ?? '') }}" placeholder="Enter Username" class="form-control">
@@ -71,7 +73,7 @@
                     <i class="fa fa-eye" id="togglePassword"></i>
                 </span>
             </div>
-            <button type="button" onclick="submitForm();">Sign In</button>
+            <button type="submit">Sign In</button>
         </form>
         <span style="text-align:right;margin-top:5px;">Don't have an account? <a href="{{ route('signup') }}">Sign up</a></span>
     </div>
