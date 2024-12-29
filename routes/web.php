@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -8,8 +9,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ProductController::class, 'index'])->name('home');
 //
 Route::get('/admin', function () {
-    return view('admin.addItem',['panelName' => 'admin']);
-});
+    return view('admin.addItem', ['panelName' => 'admin']);
+})->name('admin');
 //
 Route::get('/signin', function () {
     return view('signin');
@@ -19,9 +20,10 @@ Route::get('/signup', function () {
     return view('signup');
 })->name('signup');
 //
+// Route::prefix('admin')->middleware('auth')->group(function () {
 Route::prefix('admin')->group(function () {
     Route::get('/addItem', function () {
-        return view('admin.addItem',['panelName' => 'admin']);
+        return view('admin.addItem', ['panelName' => 'admin']);
     })->name('addItem');
     //
     Route::get('/updateItem/{prod_id}', [ProductController::class, 'edit'])->name('updateItem');
@@ -40,5 +42,5 @@ Route::post("/addInputTypeFile", [AjaxController::class, 'addInputTypeFile'])->n
 Route::post("/admin/addInputTypeFile", [AjaxController::class, 'addInputTypeFile'])->name('addInputTypeFile');
 Route::post("/viewItem/{prod_category_slg}/{prod_name_slg}/{prod_code_slg}", [ProductController::class, 'viewItem'])->name('viewItem');
 Route::get('/viewItems/{prod_collection_slg?}/{prod_category_slg?}/{prod_name_slg?}/{prod_code_slg?}', [ProductController::class, 'viewItems'])->name('viewItems');
-Route::post('/signupdata',[UserController::class,'signupdata'])->name('signupdata');
-Route::post('/signindata',[UserController::class,'signindata'])->name('signindata');
+Route::post('/signupdata', [UserController::class, 'signupdata'])->name('signupdata');
+Route::post('/signindata', [UserController::class, 'signindata'])->name('signindata');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -27,17 +28,20 @@ class UserController extends Controller
             'cpassword.required' => 'The confirm password field is required.',
             'cpassword.same' => 'The confirm password must match the password.',
         ]);
-        //
-        $validated['user_ipassword'] = $validated['user_password'];
-        $validated['user_password'] = Hash::make($validated['user_password']);
-        $user = User::create($validated);
-        $user_id = $user->user_id;
-        //
-        return redirect()->route('signin')
-            ->with([
-                'success' => 'Registration Successfull!',
-                'user_username' => $validated['user_username']
-            ]);
+
+        $userData = [
+            'user_username' => $validated['user_username'],
+            'user_email' => $validated['user_email'],
+            'user_ipassword' => $validated['user_password'],
+            'user_password' => Hash::make($validated['user_password']),
+        ];
+
+        $user = User::create($userData);
+
+        return redirect()->route('signin')->with([
+            'success' => 'Registration successful!',
+            'user_username' => $user->user_username,
+        ]);
     }
     //
     public function signInData(Request $request)
@@ -54,15 +58,16 @@ class UserController extends Controller
             'user_password.regex' => 'The password must contain at least one uppercase letter, one number, and one special character.',
         ]);
         //
-        $validated['user_ipassword'] = $validated['user_password'];
-        $validated['user_password'] = Hash::make($validated['user_password']);
-        $user = User::create($validated);
-        $user_id = $user->user_id;
+        $credentials = [
+            'user_username' => $validated['user_username'],
+            'password' => $validated['user_password'],
+        ];
         //
-        return redirect()->route('signin')
-            ->with([
-                'success' => 'Registration Successfull!',
-                'user_username' => $validated['user_username']
-            ]);
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->route('admin')->with('success', 'Logged in successfully.');
+        }
+        //
+        return redirect()->back()->withErrors(['login' => 'Invalid username or password.']);
     }
 }

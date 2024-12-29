@@ -21,6 +21,6 @@ class User extends Authenticatable
     ];
     public function getAuthPassword()
     {
-        return $this->user_password; // Specify your custom password column
+        return $this->user_password; 
     }
 }

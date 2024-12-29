@@ -17,6 +17,7 @@
     @php
         $product = $product ?? [];
     @endphp
+    {{print_r(session()->all());}}
     <div class="container">
         @if ($product)
             <a class="btn btn-success mt-5 mb-1" href="{{ route('itemList') }}">&nbsp;&nbsp;Back&nbsp;&nbsp;</a>
