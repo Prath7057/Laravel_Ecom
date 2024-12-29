@@ -56,7 +56,7 @@
 
         .error-message {
             color: red;
-            min-height: 20px;
+            min-height: 10px;
         }
     </style>
 @endpush
