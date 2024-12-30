@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -65,6 +66,7 @@ class UserController extends Controller
         //
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            // Session::put('session_user_id', );//here set logged user session
             return redirect()->route('admin')->with('success', 'Logged in successfully.');
         }
         //
