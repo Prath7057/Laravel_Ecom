@@ -2,13 +2,15 @@
 
 @push('styles')
     <style>
-        .border-red{
+        .border-red {
             border: 1px solid red;
         }
-        .validation-msg{
-            font-size:0.9rem;
+
+        .validation-msg {
+            font-size: 0.9rem;
             position: absolute;
-            bottom:-50%;right:0%;
+            bottom: -50%;
+            right: 0%;
         }
     </style>
 @endpush
@@ -35,17 +37,24 @@
         @csrf
         <div class="mb-3 row">
             <input type="hidden" id="secure_prod_id" name="secure_prod_id" value="{{ $product->secure_prod_id ?? '' }}" />
-            <div class="col-md-6" >
+            <div class="col-md-6">
                 <label for="prod_code" class="form-label">
                     Item Code<span style="color: red;"> *</span>
                 </label>
                 <div style="position: relative;">
-                    <input type="text" class="form-control {{ $errors->has('prod_code') ? '' : '' }}" 
-                       value="{{ old('prod_code', $product->prod_code ?? '') }}"
-                       id="prod_code" name="prod_code" placeholder="Item Code">            
+                    <input type="text" class="form-control {{ $errors->has('prod_code') ? '' : '' }}"
+                        value="{{ old('prod_code', $product->prod_code ?? '') }}" id="prod_code" name="prod_code"
+                        placeholder="Item Code"
+                        onkeydown="if (event.keyCode == 13) {
+                                         inputOnfocus('prod_amount');                                        
+                                         return false;
+                                 } else if (event.keyCode == 8 && this.value == '') {
+                                         inputOnfocus(''); 
+                                         return false;
+                                 }">
                     @if ($errors->has('prod_code'))
                         <span class="error-message text-danger validation-msg">
-                            {{  $errors->first('prod_code')  }}
+                            {{ $errors->first('prod_code') }}
                         </span>
                     @endif
                 </div>
@@ -55,11 +64,18 @@
                     Item Price<span style="color: red;"> *</span>
                 </label>
                 <div style="position: relative;">
-                    <input type="text" class="form-control {{ $errors->has('prod_amount') ? '' : '' }}" 
-                        value="{{ old('prod_amount', $product->prod_amount ?? '') }}"
-                        id="prod_amount" name="prod_amount" placeholder="Add Item Price">
-                        @if ($errors->has('prod_amount'))
-                        <span class="error-message text-danger validation-msg">{{  $errors->first('prod_amount')  }}</span>
+                    <input type="text" class="form-control {{ $errors->has('prod_amount') ? '' : '' }}"
+                        value="{{ old('prod_amount', $product->prod_amount ?? '') }}" id="prod_amount" name="prod_amount"
+                        placeholder="Add Item Price"
+                        onkeydown="if (event.keyCode == 13) {
+                            inputOnfocus('prod_category');                                        
+                            return false;
+                    } else if (event.keyCode == 8 && this.value == '') {
+                            inputOnfocus('prod_code'); 
+                            return false;
+                    }">
+                    @if ($errors->has('prod_amount'))
+                        <span class="error-message text-danger validation-msg">{{ $errors->first('prod_amount') }}</span>
                     @endif
                 </div>
             </div>
@@ -71,10 +87,17 @@
                 </label>
                 <div style="position: relative;">
                     <input type="text" class="form-control {{ $errors->has('prod_category') ? '' : '' }}"
-                           value="{{ old('prod_category', $product->prod_category ?? '') }}" 
-                           id="prod_category" name="prod_category" placeholder="Add Item Category Upto 16 Characters">
-                        @if ($errors->has('prod_category'))
-                        <span class="error-message text-danger validation-msg">{{  $errors->first('prod_category')  }}</span>
+                        value="{{ old('prod_category', $product->prod_category ?? '') }}" id="prod_category"
+                        name="prod_category" placeholder="Add Item Category Upto 16 Characters"
+                        onkeydown="if (event.keyCode == 13) {
+                            inputOnfocus('prod_name');                                        
+                            return false;
+                    } else if (event.keyCode == 8 && this.value == '') {
+                            inputOnfocus('prod_amount'); 
+                            return false;
+                    }">
+                    @if ($errors->has('prod_category'))
+                        <span class="error-message text-danger validation-msg">{{ $errors->first('prod_category') }}</span>
                     @endif
                 </div>
             </div>
@@ -83,11 +106,19 @@
                     Item Name<span style="color: red;"> *</span>
                 </label>
                 <div style="position: relative;">
-                    <input type="text" class="form-control {{ $errors->has('prod_name') ? '' : '' }}" id="prod_name" name="prod_name"
-                        value="{{ old('prod_name', $product->prod_name ?? '') }}" 
-                        placeholder="Add Item name Upto 16 Characters">
-                        @if ($errors->has('prod_name'))
-                        <span class="error-message text-danger validation-msg">{{  $errors->first('prod_name')  }}</span>
+                    <input type="text" class="form-control {{ $errors->has('prod_name') ? '' : '' }}" id="prod_name"
+                        name="prod_name" value="{{ old('prod_name', $product->prod_name ?? '') }}"
+                        placeholder="Add Item name Upto 16 Characters"
+                        onkeydown="if (event.keyCode == 13) {
+                            inputOnfocus('prod_desc');                                        
+                            return false;
+                    } else if (event.keyCode == 8 && this.value == '') {
+                            inputOnfocus('prod_category'); 
+                            return false;
+                    }">
+
+                    @if ($errors->has('prod_name'))
+                        <span class="error-message text-danger validation-msg">{{ $errors->first('prod_name') }}</span>
                     @endif
                 </div>
             </div>
@@ -96,16 +127,21 @@
             <label for="exampleFormControlTextarea1" class="form-label">
                 Item Description<span style="color: red;"> *</span>
             </label>
-                <textarea class="form-control {{ $errors->has('prod_desc') ? 'border-red' : '' }}" 
-                          id="prod_desc" name="prod_desc" rows="3" 
-                          placeholder="Add Item Description up to 64 Characters" 
-                          oninput="updateWordCount()">{{ old('prod_desc', $product->prod_desc ?? '') }}</textarea>
-                          
-                <small id="wordCount" class="form-text text-muted">
-                    Word count: 0
-                </small>
+            <textarea class="form-control {{ $errors->has('prod_desc') ? 'border-red' : '' }}" id="prod_desc" name="prod_desc"
+                rows="3" placeholder="Add Item Description up to 64 Characters" oninput="updateWordCount()"
+                onkeydown="if (event.keyCode == 13) {
+                            inputOnfocus('prod_collection1'); 
+                            return false;
+                    } else if (event.keyCode == 8 && this.value == '') {
+                            inputOnfocus('prod_name'); 
+                            return false;
+                    }">{{ old('prod_desc', $product->prod_desc ?? '') }}</textarea>
+
+            <small id="wordCount" class="form-text text-muted">
+                Word count: 0
+            </small>
         </div>
-        <div >
+        <div>
             <div style="position: relative;">
                 <label for="exampleFormControlTextarea1" class="form-label">
                     Item Collection
@@ -125,7 +161,15 @@
                     <div class="form-check me-3">
                         <input class="form-check-input" style="border: 1.5px solid rgb(26, 26, 26)" type="radio"
                             name="prod_collection" id="prod_collection1" value="trending"
-                            {{ $product->prod_collection ? ($product->prod_collection == 'trending' ? 'checked' : '') : '' }}>
+                            {{ $product->prod_collection ? ($product->prod_collection == 'trending' ? 'checked' : '') : '' }}
+                            onkeydown="if (event.keyCode == 13) {
+                                inputOnfocus('prod_image1'); 
+                                return false;
+                        } else if (event.keyCode == 8 && this.value == '') {
+                                inputOnfocus('prod_desc'); 
+                                return false;
+                        }"
+                            >
                         <label class="form-check-label" for="prod_collection1">
                             Trending
                         </label>
@@ -150,29 +194,41 @@
             @else
                 <div class="d-flex align-items-center">
                     <div class="form-check me-3">
-                        <input class="form-check-input" style="{{ $errors->has('prod_collection') ? 'border: 1.5px solid red' : 'border: 1.5px solid rgb(26, 26, 26)' }}" type="radio"
-                            name="prod_collection" id="prod_collection4" value="new_arrivals">
+                        <input class="form-check-input"
+                            style="{{ $errors->has('prod_collection') ? 'border: 1.5px solid red' : 'border: 1.5px solid rgb(26, 26, 26)' }}"
+                            type="radio" name="prod_collection" id="prod_collection4" value="new_arrivals">
                         <label class="form-check-label" for="prod_collection4">
                             New Arrivals
                         </label>
-                    </div>                    
+                    </div>
                     <div class="form-check me-3">
-                        <input class="form-check-input" style="{{ $errors->has('prod_collection') ? 'border: 1.5px solid red' : 'border: 1.5px solid rgb(26, 26, 26)' }}" type="radio"
-                            name="prod_collection" id="prod_collection1" value="trending">
+                        <input class="form-check-input"
+                            style="{{ $errors->has('prod_collection') ? 'border: 1.5px solid red' : 'border: 1.5px solid rgb(26, 26, 26)' }}"
+                            type="radio" name="prod_collection" id="prod_collection1" value="trending"
+                            onkeydown="if (event.keyCode == 13) {
+                                inputOnfocus('prod_image1'); 
+                                return false;
+                        } else if (event.keyCode == 8 && this.value == '') {
+                                inputOnfocus('prod_desc'); 
+                                return false;
+                        }"
+                            >
                         <label class="form-check-label" for="prod_collection1">
                             Trending
                         </label>
                     </div>
                     <div class="form-check me-3">
-                        <input class="form-check-input" style="{{ $errors->has('prod_collection') ? 'border: 1.5px solid red' : 'border: 1.5px solid rgb(26, 26, 26)' }}" type="radio"
-                            name="prod_collection" id="prod_collection2" value="top_selling">
+                        <input class="form-check-input"
+                            style="{{ $errors->has('prod_collection') ? 'border: 1.5px solid red' : 'border: 1.5px solid rgb(26, 26, 26)' }}"
+                            type="radio" name="prod_collection" id="prod_collection2" value="top_selling">
                         <label class="form-check-label" for="prod_collection2">
                             Best Seller
                         </label>
                     </div>
                     <div class="form-check me-3">
-                        <input class="form-check-input" style="{{ $errors->has('prod_collection') ? 'border: 1.5px solid red' : 'border: 1.5px solid rgb(26, 26, 26)' }}" type="radio"
-                            name="prod_collection" id="prod_collection3" value="recommended">
+                        <input class="form-check-input"
+                            style="{{ $errors->has('prod_collection') ? 'border: 1.5px solid red' : 'border: 1.5px solid rgb(26, 26, 26)' }}"
+                            type="radio" name="prod_collection" id="prod_collection3" value="recommended">
                         <label class="form-check-label" for="prod_collection3">
                             Recommanded
                         </label>

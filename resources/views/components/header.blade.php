@@ -35,6 +35,9 @@
             @if ($panelName == 'admin')
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
+                        <li id="main_ajax_loading_div" class="nav-item me-3 pt-2" style="visibility: hidden">
+                            <img src="{{ asset('images/ajaxMainLoading.gif') }}" />
+                        </li>
                         @if (request()->routeIs('updateItem'))
                             <li class="nav-item me-3">
                                 <a class="nav-link is-active">Update Item</a>
