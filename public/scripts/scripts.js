@@ -217,8 +217,8 @@ function inputOnfocus(field) {
     if (field) {
         let fieldInput = document.getElementById(field);
         fieldInput.focus();
-        let length = fieldInput.value.length;     
-        if (fieldInput.type != 'submit' && fieldInput.type != 'email' && fieldInput.type != 'radio') {            
+        let length = fieldInput.value.length;
+        if (fieldInput.type != 'submit' && fieldInput.type != 'email' && fieldInput.type != 'radio') {
             fieldInput.setSelectionRange(length, length);
         }
     }

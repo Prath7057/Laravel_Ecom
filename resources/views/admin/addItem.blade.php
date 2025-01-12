@@ -168,8 +168,7 @@
                         } else if (event.keyCode == 8 && this.value == '') {
                                 inputOnfocus('prod_desc'); 
                                 return false;
-                        }"
-                            >
+                        }">
                         <label class="form-check-label" for="prod_collection1">
                             Trending
                         </label>
@@ -211,8 +210,7 @@
                         } else if (event.keyCode == 8 && this.value == '') {
                                 inputOnfocus('prod_desc'); 
                                 return false;
-                        }"
-                            >
+                        }">
                         <label class="form-check-label" for="prod_collection1">
                             Trending
                         </label>
