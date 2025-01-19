@@ -72,27 +72,12 @@
                 <div class="form-group">
                     <input type="text" id="user_username" name="user_username"
                         value="{{ old('user_username', $user->user_username ?? '') }}" placeholder="Enter Username"
-                        class="form-control"
-                        onkeydown="if (event.keyCode == 13) {
-                                        event.preventDefault();
-                                        inputOnfocus('user_email');                                        
-                                        return false;
-                                   } else if (event.keyCode == 8 && this.value == '') {
-                                        inputOnfocus(''); 
-                                        return false;
-                                   }">
+                        class="form-control" >
                     <span class="error-message" id="username-error">{{ $errors->first('user_username') }}</span>
                 </div>
                 <div class="form-group" style="position: relative;">
                     <input type="password" id="user_password" name="user_password" value="{{ old('user_password') }}"
-                        placeholder="Please Enter Password" class="form-control"
-                        onkeydown="if (event.keyCode == 13) {
-                                      inputOnfocus('cpassword');                                        
-                                      return false;
-                                  } else if (event.keyCode == 8 && this.value == '') {
-                                      inputOnfocus('user_email'); 
-                                      return false;
-                                  }">
+                        placeholder="Please Enter Password" class="form-control" >
                     <span class="error-message" id="password-error">{{ $errors->first('user_password') }}</span>
                     <span class="toggle-password" style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
                         <i class="fa fa-eye" id="togglePassword"></i>
@@ -115,5 +100,10 @@
             password.setAttribute('type', type);
             this.classList.toggle('fa-eye-slash');
         });
+        //
+        window.addEventListener("load", (event) => {
+                initializeInputFields();
+                document.getElementById('user_username').focus();
+            });
     </script>
 @endpush

@@ -213,13 +213,29 @@ function validateSignUpForm() {
     return true;
 }
 //
-function inputOnfocus(field) {
-    if (field) {
-        let fieldInput = document.getElementById(field);
-        fieldInput.focus();
-        let length = fieldInput.value.length;
-        if (fieldInput.type != 'submit' && fieldInput.type != 'email' && fieldInput.type != 'radio') {
-            fieldInput.setSelectionRange(length, length);
+function initializeInputFields() {
+    const inputFields = document.querySelectorAll("input, button");
+    //
+    inputFields.forEach((field) => {
+        
+        field.addEventListener("keydown", handleKeyboardNavigation);
+    });
+    //
+    function handleKeyboardNavigation(event) {
+        const currentField = event.target;
+        const currentIndex = Array.from(inputFields).indexOf(currentField);
+        if (event.key === "Enter" && currentField.type != 'submit') {
+            event.preventDefault();
+            const nextField = inputFields[currentIndex + 1];
+            if (nextField) {
+                nextField.focus();
+            }
+        }
+        if (event.key === "Backspace" && currentField.value.length === 0) {
+            const previousField = inputFields[currentIndex - 1];
+            if (previousField) {
+                previousField.focus();
+            }
         }
     }
 }
