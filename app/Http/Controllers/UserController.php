@@ -38,7 +38,9 @@ class UserController extends Controller
         ];
 
         $user = User::create($userData);
-
+        //
+        Auth::login($user);//Direct Authenticate if successfully register
+        //
         return redirect()->route('signin')->with([
             'success' => 'Registration successful!',
             'user_username' => $user->user_username,
@@ -66,6 +68,7 @@ class UserController extends Controller
         //
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            $user = Auth::user();
             // Session::put('session_user_id', );//here set logged user session
             return redirect()->route('admin')->with('success', 'Logged in successfully.');
         }
