@@ -61,7 +61,7 @@
                         </li>
                         <li class="nav-item me-3">
                             <a class="nav-link {{ request()->routeIs('home') ? 'is-active' : '' }}"
-                                href="/">Home</a>
+                                href="{{route('home')}}">Home</a>
                         </li>
                         <li class="nav-item me-3">
                             <a class="nav-link" href="">About</a>

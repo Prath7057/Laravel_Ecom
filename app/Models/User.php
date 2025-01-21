@@ -17,6 +17,7 @@ class User extends Authenticatable
         'user_username',
         'user_password',
         'user_ipassword',
+        'user_mobile',
         'user_email',
     ];
     public function getAuthPassword()

@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('user_password');
             $table->string('user_ipassword');
             $table->string('user_email');
-            $table->string('user_mobile');
+            $table->string('user_mobile')->nullable();
             $table->timestamps();
         });
     }
