@@ -21,7 +21,7 @@ Route::get('/signup', function () {
 })->name('signup');
 //
 // Route::prefix('admin')->middleware('auth')->group(function () {
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/addItem', function () {
         return view('admin.addItem', ['panelName' => 'admin']);
     })->name('addItem');
