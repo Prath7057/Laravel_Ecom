@@ -66,18 +66,23 @@
     @include('components.header')
     <div class="container mt-5" style="width: 100%;max-width: 400px;">
         <div class="card">
+            @if (session('message'))
+                <div class="alert alert-warning text-center p-1 my-1 mb-1">
+                    {{ session('message') }}
+                </div>
+            @endif
             <h2>Sign In</h2>
             <form action="{{ route('signindata') }}" method="POST" id="signinForm">
                 @csrf
                 <div class="form-group">
                     <input type="text" id="user_username" name="user_username"
                         value="{{ old('user_username', $user->user_username ?? '') }}" placeholder="Enter Username"
-                        class="form-control" >
+                        class="form-control">
                     <span class="error-message" id="username-error">{{ $errors->first('user_username') }}</span>
                 </div>
                 <div class="form-group" style="position: relative;">
                     <input type="password" id="user_password" name="user_password" value="{{ old('user_password') }}"
-                        placeholder="Please Enter Password" class="form-control" >
+                        placeholder="Please Enter Password" class="form-control">
                     <span class="error-message" id="password-error">{{ $errors->first('user_password') }}</span>
                     <span class="toggle-password" style="position: absolute; right: 10px; top: 10px; cursor: pointer;">
                         <i class="fa fa-eye" id="togglePassword"></i>
@@ -102,8 +107,8 @@
         });
         //
         window.addEventListener("load", (event) => {
-                initializeInputFields();
-                document.getElementById('user_username').focus();
-            });
+            initializeInputFields();
+            document.getElementById('user_username').focus();
+        });
     </script>
 @endpush
